@@ -297,7 +297,7 @@ if not defined terminal (
 mode 110, 34
 if exist "%SysPath%\spp\store_test\" mode 134, 34
 )
-title  HWID Activation %ver%
+title  WinHubX Attivatore HWID
 
 echo:
 echo Initializing...
