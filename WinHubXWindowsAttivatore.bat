@@ -9,7 +9,7 @@ title WinHubX Windows Attivatore
 echo.========================Attiva Windows=========================
 echo.
 echo.    [1] HWID (Win8.1-11)(Permanente)(RACCOMANDATO)
-echo.    [2] TSforge (Win8.1-11)(Permanente)(No internet)
+echo.    [2] TSforge (Win8.1-11)(Permanente)(non richiede internet)
 echo.    [3] KMS38 (Win8.1-11)
 echo.    [4] KMS (Win7-11)
 echo.
@@ -23,6 +23,7 @@ if "%Sceltaattivazione%" == "4" ( goto :serverkms )
 
 
 :tsforge
+
 
 
 
@@ -167,12 +168,29 @@ ping 127.0.0.1 -n 20
 )
 cls
 
+::  Check LF line ending
+
+pushd "%~dp0"
+>nul findstr /v "$" "%~nx0" && (
+echo:
+echo Error - Script either has LF line ending issue or an empty line at the end of the script is missing.
+echo:
+echo:
+echo Help - troubleshoot
+echo:
+echo:
+ping 127.0.0.1 -n 20 >nul
+popd
+exit /b
+)
+popd
+
 ::========================================================================================================================================
 
 cls
 color 07
 set KS=K%blank%MS
-title  WinHubX Attivatore TSforge
+title  WinHubX Attivatore TSForge
 
 set _args=
 set _elev=
@@ -216,7 +234,7 @@ goto dk_done
 if %winbuild% LSS 7600 (
 %nceline%
 echo Unsupported OS version detected [%winbuild%].
-echo  only supports Windows 7/8/8.1/10/11 and their Server equivalents.
+echo only supports Windows 7/8/8.1/10/11 and their Server equivalents.
 goto dk_done
 )
 
@@ -272,7 +290,7 @@ echo PowerShell is not working. Aborting...
 echo If you have applied restrictions on Powershell then undo those changes.
 echo:
 set fixes=%fixes% fix_powershell
-call :dk_color2 %Blue% "Help - " %_Yellow% " fix_powershell"
+call :dk_color2 %Blue% "Help - " %_Yellow% "fix_powershell"
 )
 goto dk_done
 )
@@ -333,46 +351,14 @@ set "d4=$k=$t.CreateType(); $b=$k::SetConsoleMode($k::GetStdHandle(-10), 0x0080)
 
 ::========================================================================================================================================
 
-::  Check for updates
-
-set -=
-set old=
-set upver=%ver:.=%
-
-for /f "delims=[] tokens=2" %%# in ('ping -4 -n 1 activ%-%ated.win') do (
-if not "%%#"=="" set old=1
-for /f "delims=[] tokens=2" %%# in ('ping -4 -n 1 updatecheck%upver%.activ%-%ated.win') do (
-if not "%%#"=="" set old=
-)
-)
-
-if defined old (
-echo ________________________________________________
-%eline%
-echo Your version of  [%ver%] is outdated.
-echo ________________________________________________
-echo:
-if not %_unattended%==1 (
-echo [1] Get Latest 
-echo [0] Continue Anyway
-echo:
-call :dk_color %_Green% "Choose a menu option using your keyboard [1,0] :"
-choice /C:10 /N
-if !errorlevel!==2 rem
-if !errorlevel!==1 (start  & exit /b)
-)
-)
-
-::========================================================================================================================================
-
 :ts_menu
 
 if %_unattended%==0 (
 cls
 if not defined terminal mode 76, 33
-title  WinHubX Attivatore TSforge
+title  WinHubX Attivatore TSForge
 
-if !_el!==1  cls & setlocal & set "_actwin=1"       & call :ts_start & endlocal & cls & goto :ts_menu
+setlocal & set "_actwin=1"       & call :ts_start & endlocal & cls & goto :ts_menu
 goto :ts_menu
 )
 
@@ -388,7 +374,7 @@ mode 125, %height%
 if exist "%SysPath%\spp\store_test\" mode 134, %height%
 %psc% "&{$W=$Host.UI.RawUI.WindowSize;$B=$Host.UI.RawUI.BufferSize;$W.Height=%height%;$B.Height=300;$Host.UI.RawUI.WindowSize=$W;$Host.UI.RawUI.BufferSize=$B;}" %nul%
 )
-title  WinHubX Attivatore TSforge
+title  WinHubX Attivatore TSForge
 
 echo:
 echo Initializing...
@@ -412,7 +398,7 @@ echo Install .NET Framework 4.8 and Windows Management Framework 5.1
 )
 echo:
 set fixes=%fixes% troubleshoot
-call :dk_color2 %Blue% "Help - " %_Yellow% " troubleshoot"
+call :dk_color2 %Blue% "Help - " %_Yellow% "troubleshoot"
 goto dk_done
 )
 )
@@ -426,7 +412,7 @@ echo Evaluation WLMS service is running, sppsvc service can not be stopped. Abor
 echo Install Non-Eval version for Windows build %winbuild%.
 echo:
 set fixes=%fixes% troubleshoot
-call :dk_color2 %Blue% "Help - " %_Yellow% " troubleshoot"
+call :dk_color2 %Blue% "Help - " %_Yellow% "troubleshoot"
 goto dk_done
 )
 )
@@ -465,7 +451,7 @@ call :dk_errorcheck
 if defined error (
 call :dk_color %Red% "Some errors were detected. Aborting the operation..."
 set fixes=%fixes% troubleshoot
-call :dk_color2 %Blue% "Help - " %_Yellow% " troubleshoot"
+call :dk_color2 %Blue% "Help - " %_Yellow% "troubleshoot"
 goto :dk_done
 )
 
@@ -750,7 +736,7 @@ if %winbuild% EQU 9600 set esuavail=1
 if defined esuavail (
 call :dk_color %Red% "Checking Activation ID                  [ESU license is not found, make sure Windows is fully updated]"
 set fixes=%fixes% tsforge#windows-esu
-call :dk_color2 %Blue% "Help - " %_Yellow% " tsforge#windows-esu"
+call :dk_color2 %Blue% "Help - " %_Yellow% "tsforge#windows-esu"
 ) else (
 call :dk_color %Gray% "Checking Activation ID                  [ESU is not available for %winos%]"
 )
@@ -1180,7 +1166,7 @@ set resetstuff=1
 if %errorlevel%==3 (
 call :dk_color %Red% "Reset Failed."
 set fixes=%fixes% troubleshoot
-call :dk_color2 %Blue% "Help - " %_Yellow% " troubleshoot"
+call :dk_color2 %Blue% "Help - " %_Yellow% "troubleshoot"
 ) else (
 call :dk_color %Green% "Reset process has been successfully done."
 )
@@ -1344,7 +1330,7 @@ call :dk_color %Gray% "To activate, check your internet connection and ensure th
 call :dk_color %Blue% "This Windows version is known to not activate due to MS Windows/Server issues."
 )
 set fixes=%fixes% troubleshoot
-call :dk_color2 %Blue% "Help - " %_Yellow% " troubleshoot"
+call :dk_color2 %Blue% "Help - " %_Yellow% "troubleshoot"
 )
 )
 
@@ -1357,7 +1343,7 @@ echo:
 if !errorlevel!==3 (
 if %_actman%==0 call :dk_color %Blue% "%_fixmsg%"
 set fixes=%fixes% troubleshoot
-call :dk_color2 %Blue% "Help - " %_Yellow% " troubleshoot"
+call :dk_color2 %Blue% "Help - " %_Yellow% "troubleshoot"
 ) else (
 echo "%tsids%" | find /i "7e94be23-b161-4956-a682-146ab291774c" %nul1% && (
 call :dk_color %Gray% "Windows Update can receive 1-3 years of ESU. 4-6 year ESU is not officially supported, but you can manually install updates."
@@ -1398,7 +1384,7 @@ cls
 if not defined terminal (
 mode 100, 30
 )
-title  WinHubx Rimozione TSForge
+title  WinHubX Rimozione Attivatore TSForge
 
 echo:
 echo TSforge activation doesn't modify any Windows component.
@@ -1561,7 +1547,7 @@ call :dk_color %Red% "Checking Activation ID                  [Office %oVer%.0 !
 set error=1
 set showfix=1
 set fixes=%fixes% troubleshoot
-call :dk_color2 %Blue% "Help - " %_Yellow% " troubleshoot"
+call :dk_color2 %Blue% "Help - " %_Yellow% "troubleshoot"
 )
 
 echo %%# | find /i "2024" %nul% && (
@@ -1934,7 +1920,7 @@ set "_exitmsg=Go back"
 set "_fixmsg=Go back to Main Menu, select Troubleshoot and run Fix Licensing option."
 ) else (
 set "_exitmsg=Exit"
-set "_fixmsg=In  folder, run Troubleshoot script and select Fix Licensing option."
+set "_fixmsg=In folder, run Troubleshoot script and select Fix Licensing option."
 )
 exit /b
 
@@ -2214,7 +2200,7 @@ if defined pupfound call :dk_color %Gray% "Checking PUP Activators              
 if defined results call :dk_color %Red% "Checking Probable Mal%w%ware Infection..."
 if defined results call :dk_color %Red% "%results%"
 set fixes=%fixes% remove_mal%w%ware
-call :dk_color2 %Blue% "Help - " %_Yellow% " remove_mal%w%ware"
+call :dk_color2 %Blue% "Help - " %_Yellow% "remove_mal%w%ware"
 echo:
 )
 
@@ -2334,7 +2320,7 @@ set showfix=1
 )
 echo %serv_e% | findstr /i "sppsvc-1060" %nul% && (
 set fixes=%fixes% fix_service
-call :dk_color2 %Blue% "Help - " %_Yellow% " fix_service"
+call :dk_color2 %Blue% "Help - " %_Yellow% "fix_service"
 set showfix=1
 )
 )
@@ -2363,7 +2349,7 @@ call :dk_color %Blue% "You need to run it in normal mode in case you are running
 )
 echo "%imagestate%" | find /i "UNDEPLOYABLE" %nul% && (
 set fixes=%fixes% in-place_repair_upgrade
-call :dk_color2 %Blue% "If the activation fails, do this - " %_Yellow% " in-place_repair_upgrade"
+call :dk_color2 %Blue% "If the activation fails, do this - " %_Yellow% "in-place_repair_upgrade"
 )
 )
 
@@ -2391,7 +2377,7 @@ if not defined notwinact if exist "%SystemRoot%\Servicing\Packages\Microsoft-Win
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v EditionID %nul2% | find /i "Eval" %nul1% || (
 call :dk_color %Red% "Checking Eval Packages                  [Non-Eval Licenses are installed in Eval Windows]"
 set fixes=%fixes% evaluation_editions
-call :dk_color2 %Blue% "Help - " %_Yellow% " evaluation_editions"
+call :dk_color2 %Blue% "Help - " %_Yellow% "evaluation_editions"
 )
 )
 
@@ -2493,7 +2479,7 @@ set error=1
 set showfix=1
 call :dk_color %Red% "Checking HKU\S-1-5-20 Registry          [Not Found]"
 set fixes=%fixes% in-place_repair_upgrade
-call :dk_color2 %Blue% "In case of activation issues, do this - " %_Yellow% " in-place_repair_upgrade"
+call :dk_color2 %Blue% "In case of activation issues, do this - " %_Yellow% "in-place_repair_upgrade"
 )
 
 
@@ -2521,7 +2507,7 @@ call :dk_color %Red% "Checking SkipRearm                      [Default 0 Value N
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform\Plugins\Objects\msft:rm/algorithm/hwid/4.0" /f ba02fed39662 /d %nul% || (
 call :dk_color %Red% "Checking SPP Registry Key               [Incorrect ModuleId Found]"
 set fixes=%fixes% issues_due_to_gaming_spoofers
-call :dk_color2 %Blue% "Most likely caused by gaming spoofers. Help - " %_Yellow% " issues_due_to_gaming_spoofers"
+call :dk_color2 %Blue% "Most likely caused by gaming spoofers. Help - " %_Yellow% "issues_due_to_gaming_spoofers"
 set error=1
 set showfix=1
 )
@@ -2536,7 +2522,7 @@ set error=1
 set showfix=1
 call :dk_color %Red% "Checking TokenStore Registry Key        [Correct Path Not Found] [%tokenstore%]"
 set fixes=%fixes% troubleshoot
-call :dk_color2 %Blue% "Help - " %_Yellow% " troubleshoot"
+call :dk_color2 %Blue% "Help - " %_Yellow% "troubleshoot"
 )
 
 
@@ -4442,7 +4428,7 @@ namespace LibTSforge.Crypto
 
             byte[] rsaKey = production ? Keys.PRODUCTION : Keys.TEST;
 
-            byte[] aesKey = Encoding.UTF8.GetBytes("sgrave.dev :3");
+            byte[] aesKey = Encoding.UTF8.GetBytes("massgrave.dev :3");
             byte[] hmacKey = CryptoUtils.GenerateRandomKey(0x10);
 
             byte[] encAesKey = CryptoUtils.RSAEncrypt(rsaKey, aesKey);
