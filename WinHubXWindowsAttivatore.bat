@@ -168,23 +168,6 @@ ping 127.0.0.1 -n 20
 )
 cls
 
-::  Check LF line ending
-
-pushd "%~dp0"
->nul findstr /v "$" "%~nx0" && (
-echo:
-echo Error - Script either has LF line ending issue or an empty line at the end of the script is missing.
-echo:
-echo:
-echo Help - troubleshoot
-echo:
-echo:
-ping 127.0.0.1 -n 20 >nul
-popd
-exit /b
-)
-popd
-
 ::========================================================================================================================================
 
 cls
@@ -486,7 +469,7 @@ goto :ts_wineval
 
 call :ts_checkwinperm
 if defined _perm (
-call :dk_color %Gray% "Checking OS Activation                  [Windows is already permanently activated]"
+call :dk_color %Gray% "Checking OS Activation                  [Windows già attivato permanentemente]"
 goto :ts_esu
 )
 
