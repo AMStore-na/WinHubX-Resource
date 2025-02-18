@@ -8,8 +8,8 @@ cls
 title WinHubX Windows Attivatore
 echo.========================Attiva Windows=========================
 echo.
-echo.    [1] HWID (Win8.1-11)(RACCOMANDATO)
-echo.    [2] TSforge (Win8.1-11)(no internet)
+echo.    [1] HWID (Win8.1-11)(Permanente)(RACCOMANDATO)
+echo.    [2] TSforge (Win8.1-11)(Permanente)(No internet)
 echo.    [3] KMS38 (Win8.1-11)
 echo.    [4] KMS (Win7-11)
 echo.
