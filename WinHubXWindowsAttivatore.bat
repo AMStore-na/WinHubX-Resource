@@ -6661,11 +6661,11 @@ if ($env:resetstuff -eq $null) {
             if ($licenseStatus -eq 1) {
                 if ($prodDes -match 'KMS' -and $prodDes -notmatch 'CLIENT') {
                     [LibTSforge.Modifiers.KMSHostCharge]::Charge($ver, $tsactid, $prod)
-                    Write-Host "[$prodName] CSVLK is permanently activated with ZeroCID." -ForegroundColor White -BackgroundColor DarkGreen
+                    Write-Host "[$prodName] CSVLK attivato permanentemente con ZeroCID." -ForegroundColor White -BackgroundColor DarkGreen
                     Write-Host "[$prodName] CSVLK is charged with 25 clients for 30 days." -ForegroundColor White -BackgroundColor DarkGreen
                 }
                 else {
-                    Write-Host "[$prodName] is permanently activated with ZeroCID." -ForegroundColor White -BackgroundColor DarkGreen
+                    Write-Host "[$prodName] attivato permanentemente con ZeroCID." -ForegroundColor White -BackgroundColor DarkGreen
                 }
             }
             else {
@@ -9385,12 +9385,12 @@ if defined _perm (
 cls
 echo ___________________________________________________________________________________________
 echo:
-call :dk_color2 %_White% "     " %Green% "%winos% is already permanently activated."
-call :dk_color2 %_White% "     " %Gray% "Activation is not required."
+call :dk_color2 %_White% "     " %Green% "%winos% già attivato permanentemente."
+call :dk_color2 %_White% "     " %Gray% "Attivazione non richiesta."
 echo ___________________________________________________________________________________________
 if %_unattended%==1 goto dk_done
 echo:
-choice /C:10 /N /M ">    [1] Activate Anyway [0] %_exitmsg% : "
+choice /C:10 /N /M ">    [1] Attiva comunque [0] %_exitmsg% : "
 if errorlevel 2 exit /b
 )
 cls
