@@ -7345,10 +7345,11 @@ exit /b
 :permanentemente
 
 
+
 ::============================================================================
 ::
-::   
-::     
+::   Homepage: mass grave[.]dev
+::      Email: mas.help@outlook.com
 ::
 ::============================================================================
 
@@ -7457,11 +7458,13 @@ ping 127.0.0.1 -n 20
 )
 cls
 
+
+
 ::========================================================================================================================================
 
 cls
 color 07
-title  WinHubX Attivatore Windows HWID
+title  WinHubx HWID
 
 set _args=
 set _elev=
@@ -7622,6 +7625,7 @@ set "d4=$k=$t.CreateType(); $b=$k::SetConsoleMode($k::GetStdHandle(-10), 0x0080)
 %launchcmd% "%d1% %d2% %d3% %d4% & cmd.exe '/c' '!_PSarg! -qedit'" && (exit /b) || (set terminal=1)
 :skipQE
 
+
 ::========================================================================================================================================
 
 cls
@@ -7629,7 +7633,7 @@ if not defined terminal (
 mode 110, 34
 if exist "%SysPath%\spp\store_test\" mode 134, 34
 )
-title  WinHubX Attivatore Windows HWID
+title  WinHubX HWID
 
 echo:
 echo Initializing...
@@ -7668,11 +7672,11 @@ if defined _perm (
 cls
 echo ___________________________________________________________________________________________
 echo:
-call :dk_color2 %_White% "     " %Green% "%winos% già attivato permanentemente."
+call :dk_color2 %_White% "     " %Green% "%winos% is already permanently activated."
 echo ___________________________________________________________________________________________
 if %_unattended%==1 goto dk_done
 echo:
-choice /C:10 /N /M ">    [1] Attiva comnque [0] %_exitmsg% : "
+choice /C:10 /N /M ">    [1] Activate Anyway [0] %_exitmsg% : "
 if errorlevel 2 exit /b
 )
 cls
@@ -7772,8 +7776,7 @@ if not defined skunotfound (
 echo This product does not support HWID activation.
 echo Make sure you are using the latest version of the script.
 echo If you are, then try TSforge activation option from the main menu.
-set fixes=%fixes% 
-echo 
+set fixes=%fixes%
 ) else (
 echo Required license files not found in %SysPath%\spp\tokens\skus\
 set fixes=%fixes% troubleshoot
@@ -7901,7 +7904,7 @@ call :dk_act
 call :dk_checkperm
 if defined _perm (
 echo:
-call :dk_color %Green% "%winos% attivato permanentemente con licenza digitale."
+call :dk_color %Green% "%winos% is permanently activated with a digital license."
 goto :dl_final
 )
 
@@ -8027,7 +8030,7 @@ call :dk_color2 %Blue% "Help - " %_Yellow% " licensing-servers-issue"
 
 echo:
 if defined _perm (
-call :dk_color %Green% "%winos% attivato permanentemente con ligenza digitale."
+call :dk_color %Green% "%winos% is permanently activated with a digital license."
 ) else (
 call :dk_color %Red% "Activation Failed %error_code%"
 if defined notworking (
@@ -8110,7 +8113,7 @@ set "_exitmsg=Go back"
 set "_fixmsg=Go back to Main Menu, select Troubleshoot and run Fix Licensing option."
 ) else (
 set "_exitmsg=Exit"
-set "_fixmsg=In folder, run Troubleshoot script and select Fix Licensing option."
+set "_fixmsg=Run Troubleshoot script and select Fix Licensing option."
 )
 exit /b
 
@@ -8961,7 +8964,7 @@ exit /b
 ::  2nd column = Generic Retail/OEM/MAK Key
 ::  3rd column = SKU ID
 ::  4th column = Key part number
-::  5th column = Ticket signature value. It's as it is, it's not encoded.
+::  5th column = Ticket signature value. It's as it is, it's not encoded. (Check mass grave[.]dev/hwid#manual-activation to see how it's generated)
 ::  6th column = 1 = activation is not working (at the time of writing this), 0 = activation is working
 ::  7th column = Key Type
 ::  8th column = WMI Edition ID (For reference only)
