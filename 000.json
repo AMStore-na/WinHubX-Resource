@@ -1,0 +1,34 @@
+{
+  "Content": "WinHubX",
+  "Description": "Ti do il benvenuto a WinHubX Lite OS",
+  "Order": "000",
+  "cmdpowershell": [
+    {
+      "Command": "powershell -Command \"Get-WindowsPackage | Where-Object {$_.PackageName -like 'Microsoft-Windows-InternetExplorer-Optional-Package*'} | ForEach-Object {dism /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+    },
+    {
+      "Command": "powershell -Command \"Get-WindowsPackage | Where-Object {$_.PackageName -like 'Microsoft-Windows-Kernel-LA57-FoD*'} | ForEach-Object {dism /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+    },
+    {
+      "Command": "powershell -Command \"Get-WindowsPackage | Where-Object {$_.PackageName -like 'Microsoft-Windows-LanguageFeatures-Handwriting*'} | ForEach-Object {dism /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+    },
+    {
+      "Command": "powershell -Command \"Get-WindowsPackage | Where-Object {$_.PackageName -like 'Microsoft-Windows-LanguageFeatures-OCR*'} | ForEach-Object {dism /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+    },
+    {
+      "Command": "powershell -Command \"Get-WindowsPackage | Where-Object {$_.PackageName -like 'Microsoft-Windows-LanguageFeatures-Speech*'} | ForEach-Object {dism /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+    },
+    {
+      "Command": "powershell -Command \"Get-WindowsPackage | Where-Object {$_.PackageName -like 'Microsoft-Windows-LanguageFeatures-TextToSpeech*'} | ForEach-Object {dism /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+    },
+    {
+      "Command": "powershell -Command \"Get-WindowsPackage | Where-Object {$_.PackageName -like 'Microsoft-Windows-MediaPlayer-Package*'} | ForEach-Object {dism /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+    },
+    {
+      "Command": "powershell -Command \"Get-WindowsPackage | Where-Object {$_.PackageName -like 'Microsoft-Windows-TabletPCMath-Package*'} | ForEach-Object {dism /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+    },
+    {
+      "Command": "powershell -Command \"Get-WindowsPackage | Where-Object {$_.PackageName -like 'Microsoft-Windows-Wallpaper-Content-Extended-FoD*'} | ForEach-Object {dism /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+    }
+  ]
+}
