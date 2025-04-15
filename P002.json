@@ -84,7 +84,7 @@
     "}"
 ]
     },
-        {
+    {
         "Nome": "Disattivazioni Gruppi",
         "Command": [
           "$groups = @(",
@@ -112,7 +112,7 @@
           "    }",
           "}"
         ]
-    },
+    },      
     {
      "Nome": "Disattivazioni Task",
      "Command": [

@@ -75,10 +75,6 @@
     "Command": "Stop-Service \\\"dmwappushservice\\\" -WarningAction SilentlyContinue; Set-Service \\\"dmwappushservice\\\" -StartupType Disabled"
   },
   {
-    "Nome": "Abilita menu di avvio F8",
-    "Command": "C:\\Windows\\System32\\bcdedit.exe /set {current} bootmenupolicy Legacy | Out-Null"
-  },
-  {
     "Nome": "Disattiva Assistenza remota",
     "Command": "Set-ItemProperty -Path \\\"HKLM:\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Remote Assistance\\\" -Name \\\"fAllowToGetHelp\\\" -Type DWord -Value 0"
   },
@@ -137,14 +133,6 @@
   {
     "Nome": "Disabilita Notifiche",
     "Command": "if (!(Test-Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Notifications\\Settings\")){ New-Item -Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Notifications\\Settings\" -Force | Out-Null }; Get-ChildItem -Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Notifications\\Settings\" -ErrorAction SilentlyContinue | ForEach-Object { Set-ItemProperty -Path $_.PsPath -Name \"Enabled\" -Type DWord -Value 0; Set-ItemProperty -Path $_.PsPath -Name \"LastNotificationAddedTime\" -Type QWord -Value \"0\" }"
-  },
-  {
-    "Nome": "Disabilita Windows Feeds",
-    "Command": "if (!(Test-Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\")) { New-Item -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\" -Force | Out-Null }; Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\" -Name \"EnableFeeds\" -Type DWord -Value 0"
-  },
-  {
-    "Nome": "Disabilita Tastiera BS",
-    "Command": "Set-ItemProperty -Path \"HKCU:\\Control Panel\\Accessibility\\StickyKeys\" -Name \"Flags\" -Value \"506\"; Set-ItemProperty -Path \"HKCU:\\Control Panel\\Accessibility\\Keyboard Response\" -Name \"Flags\" -Value \"122\"; Set-ItemProperty -Path \"HKCU:\\Control Panel\\Accessibility\\ToggleKeys\" -Name \"Flags\" -Value \"58\""
   },
   {
     "Nome": "Disabilita Mitigazioni",
