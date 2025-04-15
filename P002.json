@@ -60,26 +60,35 @@
     "}"
 ]
     },
-    {
-     "Nome": "Disattivazioni Gruppi",
-     "Command": [
-    "$groups = @(", 
-    "    'Accessibility'", 
-    "    'AppSync'", 
-    "    'BrowserSettings'", 
-    "    'Credentials'", 
-    "    'DesktopTheme'", 
-    "    'Language'", 
-    "    'PackageState'", 
-    "    'Personalization'", 
-    "    'StartLayout'", 
-    "    'Windows'", 
-    ")", 
-    "", 
-    "foreach ($group in $groups) {", 
-    "    Set-ItemProperty -Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SettingSync\\Groups\\$group\" -Name \"Enabled\" -Value 0", 
+{
+  "Nome": "Disattivazioni Gruppi",
+  "Command": [
+    "PSArray",
+    "$groups = @(",
+    "    'Accessibility',",
+    "    'AppSync',",
+    "    'BrowserSettings',",
+    "    'Credentials',",
+    "    'DesktopTheme',",
+    "    'Language',",
+    "    'PackageState',",
+    "    'Personalization',",
+    "    'StartLayout',",
+    "    'Windows'",
+    ")",
+    "foreach ($group in $groups) {",
+    "    $taskPath = \"\\Microsoft\\Windows\\$group\"",
+    "    try {",
+    "        Get-ScheduledTask -TaskPath $taskPath -ErrorAction Stop | Disable-ScheduledTask -ErrorAction SilentlyContinue",
+    "    } catch {}",
+    "    $regPath = \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Group Policy\\State\\Machine\\$group\"",
+    "    if (Test-Path $regPath) {",
+    "        try {",
+    "            Remove-Item -Path $regPath -Recurse -Force -ErrorAction SilentlyContinue",
+    "        } catch {}",
+    "    }",
     "}"
-]
+  ]
     },
     {
      "Nome": "Disattivazioni Task",
