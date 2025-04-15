@@ -60,20 +60,20 @@
     "}"
 ]
     },
-{
-  "Nome": "Disattivazioni Gruppi",
-  "Command": [
+    {
+     "Nome": "Disattivazioni Gruppi",
+     "Command": [
     "PSArray",
     "$groups = @(",
-    "    'Accessibility',",
-    "    'AppSync',",
-    "    'BrowserSettings',",
-    "    'Credentials',",
-    "    'DesktopTheme',",
-    "    'Language',",
-    "    'PackageState',",
-    "    'Personalization',",
-    "    'StartLayout',",
+    "    'Accessibility'",
+    "    'AppSync'",
+    "    'BrowserSettings'",
+    "    'Credentials'",
+    "    'DesktopTheme'",
+    "    'Language'",
+    "    'PackageState'",
+    "    'Personalization'",
+    "    'StartLayout'",
     "    'Windows'",
     ")",
     "foreach ($group in $groups) {",
