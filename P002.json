@@ -1,7 +1,7 @@
 {
   "Description": "Rimozione servizi e bloatware per Windows 11",
   "Order": "P002",
-  "PS": [
+  "PSArray": [
     {
       "Nome": "Disattivazioni Servizi",
       "Command": [
