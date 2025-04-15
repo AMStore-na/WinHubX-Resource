@@ -177,28 +177,17 @@
   {
     "Nome": "Disabilita MMAgent",
     "4ram": "true",
-    "Command": [
-      "Disable-MMAgent -ApplicationPreLaunch",
-      "Disable-MMAgent -MemoryCompression",
-      "Enable-MMAgent -PageCombining",
-      "Disable-MMAgent -SwapFiles"
-    ]
+    "Command": "Disable-MMAgent -ApplicationPreLaunch; Disable-MMAgent -MemoryCompression; Enable-MMAgent -PageCombining; Disable-MMAgent -SwapFiles"
   },
   {
     "Nome": "Disabilita Superfetch",
     "hdd": "true",
-    "Command": [
-      "Stop-Service \"SysMain\" -WarningAction SilentlyContinue",
-      "Set-Service \"SysMain\" -StartupType Disabled"
-    ]
+    "Command": "Stop-Service \"SysMain\" -WarningAction SilentlyContinue; Set-Service \"SysMain\" -StartupType Disabled"
   },
   {
     "Nome": "Modifico fsutil",
     "hdd": "false",
-    "Command": [
-      "fsutil behavior set DisableLastAccess 1",
-      "fsutil behavior set EncryptPagingFile 0"
-    ]
+    "Command":"fsutil behavior set DisableLastAccess 1; fsutil behavior set EncryptPagingFile 0"
   },
   {
     "Nome": "Modifica chiavi di registro per configurazione di sistema",
