@@ -25,11 +25,7 @@
   {
     "Nome": "Disattiva Game DVR e Game Bar",
     "Command": "if (-not (Test-Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR')) { New-Item -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR' -Force } Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR' -Name 'AllowgameDVR' -Value 0"
-  },
-  {
-    "Nome": "Disattiva attività programmate di Telemetria",
-    "Command": "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser\" | Out-Null; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Application Experience\\ProgramDataUpdater\" | Out-Null; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Autochk\\Proxy\" | Out-Null; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Customer Experience Improvement Program\\Consolidator\" | Out-Null; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Customer Experience Improvement Program\\UsbCeip\" | Out-Null; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticDataCollector\" | Out-Null"
-  },  
+  }, 
   {
     "Nome": "Disattiva suggerimenti delle applicazioni",
     "Command": "if (-not (Test-Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager')) { New-Item -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Force } Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'ContentDeliveryAllowed' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'OemPreInstalledAppsEnabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'PreInstalledAppsEnabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'PreInstalledAppsEverEnabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'SilentInstalledAppsEnabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'SubscribedContent-338387Enabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'SubscribedContent-338388Enabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'SubscribedContent-338389Enabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'SubscribedContent-353698Enabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'SystemPaneSuggestionsEnabled' -Type DWord -Value 0"
@@ -61,10 +57,6 @@
   {
     "Nome": "Disattiva ID pubblicitario",
     "Command": "If (!(Test-Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\AdvertisingInfo\\\")) { New-Item -Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\AdvertisingInfo\\\" | Out-Null }; Set-ItemProperty -Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\AdvertisingInfo\\\" -Name \\\"DisabledByGroupPolicy\\\" -Type DWord -Value 1"
-  },
-  {
-    "Nome": "Disattiva reporting di Windows Error",
-    "Command": "Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting\" -Name \"Disabled\" -Type DWord -Value 1; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Windows Error Reporting\\QueueReporting\" | Out-Null"
   },
   {
     "Nome": "Disattiva e ferma il servizio di tracciamento diagnostico",

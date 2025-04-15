@@ -4,7 +4,7 @@
   "PSArray": [
     {
       "Nome": "Disattivazioni Servizi",
-      "Command": [
+      "Command23h2": [
     "$services = @(", 
     "    'diagnosticshub.standardcollector.service'",
     "    'DiagTrack'",                                  
@@ -30,7 +30,6 @@
    ],
    "Command24h2": [
     "$services = @(", 
-    "    'diagnosticshub.standardcollector.service'",
     "    'DiagTrack'",                                  
     "    'dmwappushservice'",                           
     "    'lfsvc'",                                      
@@ -84,6 +83,24 @@
     "}"
 ]
     },
+    {
+     "Nome": "Disattivazione Telemetria",
+     "Command": [
+            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser\"",
+            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Application Experience\\ProgramDataUpdater\"",
+            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Autochk\\Proxy\"",
+            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Customer Experience Improvement Program\\Consolidator\"",
+            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Customer Experience Improvement Program\\UsbCeip\"",
+            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticDataCollector\""
+     ]
+    },
+    {
+        "Nome": "Disattiva reporting di Windows Error",
+        "Command":  [
+            "Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting\" -Name \"Disabled\" -Type DWord -Value 1",
+            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Windows Error Reporting\\QueueReporting\""
+          ]
+       },
     {
         "Nome": "Disattivazioni Gruppi",
         "Command": [
