@@ -17,30 +17,22 @@
   {
     "Nome": "Disattiva accesso in background delle app predefinite",
     "Command": "foreach ($key in (Get-ChildItem \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\")) {\n    Set-ItemProperty -Path (\"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\\\" + $key.PSChildName) -Name \"Disabled\" -Value 1\n}"
-  },
-  {
-    "Nome": "Nega accesso ai dispositivi - LooselyCoupled",
-    "Command": "Set-ItemProperty -Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DeviceAccess\\Global\\LooselyCoupled\" \"Type\" \"LooselyCoupled\"; Set-ItemProperty -Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DeviceAccess\\Global\\LooselyCoupled\" \"Value\" \"Deny\"; Set-ItemProperty -Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DeviceAccess\\Global\\LooselyCoupled\" \"InitialAppValue\" \"Unspecified\""
-  },
-  {
-    "Nome": "Nega accesso ai dispositivi - Altri dispositivi",
-    "Command": "foreach ($key in (Get-ChildItem \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DeviceAccess\\Global\")) { if ($key.PSChildName -EQ \"LooselyCoupled\") { continue }; Set-ItemProperty -Path (\"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DeviceAccess\\Global\\\" + $key.PSChildName) \"Type\" \"InterfaceClass\"; Set-ItemProperty -Path (\"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DeviceAccess\\Global\\\" + $key.PSChildName) \"Value\" \"Deny\"; Set-ItemProperty -Path (\"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DeviceAccess\\Global\\\" + $key.PSChildName) \"InitialAppValue\" \"Unspecified\" }"
-  },
+  },  
   {
     "Nome": "Disattiva sensore di posizione",
-    "Command": "Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Sensor\\\\Permissions\\\\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}\\\" \\\"SensorPermissionState\\\" 0"
+    "Command": "if (-not (Test-Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Sensor\\Permissions\\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}')) { New-Item -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Sensor\\Permissions\\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}' -Force } Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Sensor\\Permissions\\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}' -Name 'SensorPermissionState' -Value 0"
   },
   {
     "Nome": "Disattiva Game DVR e Game Bar",
-    "Command": "Set-ItemProperty -Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\GameDVR\\\" \\\"AllowgameDVR\\\" 0"
+    "Command": "if (-not (Test-Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR')) { New-Item -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR' -Force } Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR' -Name 'AllowgameDVR' -Value 0"
   },
   {
     "Nome": "Disattiva attività programmate di Telemetria",
-    "Command": "Disable-ScheduledTask -TaskName \\\"Microsoft\\\\Windows\\\\Application Experience\\\\Microsoft Compatibility Appraiser\\\" | Out-Null; Disable-ScheduledTask -TaskName \\\"Microsoft\\\\Windows\\\\Application Experience\\\\ProgramDataUpdater\\\" | Out-Null; Disable-ScheduledTask -TaskName \\\"Microsoft\\\\Windows\\\\Autochk\\\\Proxy\\\" | Out-Null; Disable-ScheduledTask -TaskName \\\"Microsoft\\\\Windows\\\\Customer Experience Improvement Program\\\\Consolidator\\\" | Out-Null; Disable-ScheduledTask -TaskName \\\"Microsoft\\\\Windows\\\\Customer Experience Improvement Program\\\\UsbCeip\\\" | Out-Null; Disable-ScheduledTask -TaskName \\\"Microsoft\\\\Windows\\\\DiskDiagnostic\\\\Microsoft-Windows-DiskDiagnosticDataCollector\\\" | Out-Null"
-  },
+    "Command": "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser\" | Out-Null; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Application Experience\\ProgramDataUpdater\" | Out-Null; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Autochk\\Proxy\" | Out-Null; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Customer Experience Improvement Program\\Consolidator\" | Out-Null; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Customer Experience Improvement Program\\UsbCeip\" | Out-Null; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticDataCollector\" | Out-Null"
+  },  
   {
     "Nome": "Disattiva suggerimenti delle applicazioni",
-    "Command": "Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManager\\\" -Name \\\"ContentDeliveryAllowed\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManager\\\" -Name \\\"OemPreInstalledAppsEnabled\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManager\\\" -Name \\\"PreInstalledAppsEnabled\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManagzer\\\" -Name \\\"PreInstalledAppsEverEnabled\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManager\\\" -Name \\\"SilentInstalledAppsEnabled\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKCU:\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManager\\\" -Name \\\"SubscribedContent-338387Enabled\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManager\\\" -Name \\\"SubscribedContent-338388Enabled\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManager\\\" -Name \\\"SubscribedContent-338389Enabled\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManager\\\" -Name \\\"SubscribedContent-353698Enabled\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\ContentDeliveryManager\\\" -Name \\\"SystemPaneSuggestionsEnabled\\\" -Type DWord -Value 0"
+    "Command": "if (-not (Test-Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager')) { New-Item -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Force } Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'ContentDeliveryAllowed' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'OemPreInstalledAppsEnabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'PreInstalledAppsEnabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'PreInstalledAppsEverEnabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'SilentInstalledAppsEnabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'SubscribedContent-338387Enabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'SubscribedContent-338388Enabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'SubscribedContent-338389Enabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'SubscribedContent-353698Enabled' -Type DWord -Value 0; Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager' -Name 'SystemPaneSuggestionsEnabled' -Type DWord -Value 0"
   },
   {
     "Nome": "Crea chiave CloudContent se mancante e disattiva funzionalità consumer",
@@ -52,7 +44,7 @@
   },
   {
     "Nome": "Disattiva tracciamento posizione",
-    "Command": "If (!(Test-Path \\\"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\CapabilityAccessManager\\\\ConsentStore\\\\location\\\")) { New-Item -Path \\\"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\CapabilityAccessManager\\\\ConsentStore\\\\location\\\" -Force | Out-Null }; Set-ItemProperty -Path \\\"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\CapabilityAccessManager\\\\ConsentStore\\\\location\\\" -Name \\\"Value\\\" -Type String -Value \\\"Deny\\\"; Set-ItemProperty -Path \\\"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Sensor\\\\Overrides\\\\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}\\\" -Name \\\"SensorPermissionState\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKLM:\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\lfsvc\\\\Service\\\\Configuration\\\" -Name \\\"Status\\\" -Type DWord -Value 0"
+    "Command": "if (-not (Test-Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location')) { New-Item -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location' -Force | Out-Null }; Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location' -Name 'Value' -Type String -Value 'Deny'; if (-not (Test-Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Sensor\\Overrides\\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}')) { New-Item -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Sensor\\Overrides\\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}' -Force | Out-Null }; Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Sensor\\Overrides\\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}' -Name 'SensorPermissionState' -Type DWord -Value 0; if (-not (Test-Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\lfsvc\\Service\\Configuration')) { New-Item -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\lfsvc\\Service\\Configuration' -Force | Out-Null }; Set-ItemProperty -Path 'HKLM:\\SYSTEM\\CurrentControlSet\\Services\\lfsvc\\Service\\Configuration' -Name 'Status' -Type DWord -Value 0"
   },
   {
     "Nome": "Disattiva aggiornamenti automatici delle mappe",
@@ -72,7 +64,7 @@
   },
   {
     "Nome": "Disattiva reporting di Windows Error",
-    "Command": "Set-ItemProperty -Path \\\"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\Windows Error Reporting\\\" -Name \\\"Disabled\\\" -Type DWord -Value 1; Disable-ScheduledTask -TaskName \\\"Microsoft\\\\Windows\\\\Windows Error Reporting\\\\QueueReporting\\\" | Out-Null"
+    "Command": "Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting\" -Name \"Disabled\" -Type DWord -Value 1; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Windows Error Reporting\\QueueReporting\" | Out-Null"
   },
   {
     "Nome": "Disattiva e ferma il servizio di tracciamento diagnostico",
@@ -84,7 +76,7 @@
   },
   {
     "Nome": "Abilita menu di avvio F8",
-    "Command": "bcdedit /set `{current`} bootmenupolicy Legacy | Out-Null"
+    "Command": "C:\\Windows\\System32\\bcdedit.exe /set {current} bootmenupolicy Legacy | Out-Null"
   },
   {
     "Nome": "Disattiva Assistenza remota",
@@ -124,7 +116,7 @@
   },
   {
     "Nome": "Disabilita ID Pubblicitari",
-    "Command": "If (!(Test-Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo\")) { New-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo\" | Out-Null }; Set-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo\" -Name \"Enabled\" -Type DWord -Value 0; write-host(\"Advertising ID è stato disabilitato\")"
+    "Command": "If (!(Test-Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo\")) { New-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo\" | Out-Null }; Set-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo\" -Name \"Enabled\" -Type DWord -Value 0"
   },
   {
     "Nome": "Disabilita Cronologia File",
@@ -148,7 +140,7 @@
   },
   {
     "Nome": "Disabilita Windows Feeds",
-    "Command": "if (!(Test-Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\")){ New-Item -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\" -Force | Out-Null }; Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\" -Name \"EnableFeeds\" -Type DWord -Value 0"
+    "Command": "if (!(Test-Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\")) { New-Item -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\" -Force | Out-Null }; Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\" -Name \"EnableFeeds\" -Type DWord -Value 0"
   },
   {
     "Nome": "Disabilita Tastiera BS",
@@ -177,7 +169,7 @@
   {
     "Nome": "Disabilita MMAgent",
     "4ram": "true",
-    "Command": "Disable-MMAgent -ApplicationPreLaunch; Disable-MMAgent -MemoryCompression; Enable-MMAgent -PageCombining; Disable-MMAgent -SwapFiles"
+    "Command": "Disable-MMAgent -ApplicationPreLaunch; Disable-MMAgent -MemoryCompression; Enable-MMAgent -PageCombining"
   },
   {
     "Nome": "Disabilita Superfetch",
@@ -191,7 +183,7 @@
   },
   {
     "Nome": "Modifica chiavi di registro per configurazione di sistema",
-    "Command": "if(!(Test-Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching\")){ New-Item -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching\" -Force -ErrorAction SilentlyContinue } if(!(Test-Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power\")){ New-Item -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power\" -Force -ErrorAction SilentlyContinue } if(!(Test-Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\")){ New-Item -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\" -Force -ErrorAction SilentlyContinue } if(!(Test-Path \"HKCU:\\System\\GameConfigStore\")){ New-Item -Path \"HKCU:\\System\\GameConfigStore\" -Force -ErrorAction SilentlyContinue } if(!(Test-Path \"HKCU:\\Control Panel\\Desktop\")){ New-Item -Path \"HKCU:\\Control Panel\\Desktop\" -Force -ErrorAction SilentlyContinue } if(!(Test-Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\54533251-82be-4824-96c1-47b60b740d00\\943c8cb6-6f93-4227-ad87-e9a3feec08d1\")){ New-Item -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\54533251-82be-4824-96c1-47b60b740d00\\943c8cb6-6f93-4227-ad87-e9a3feec08d1\" -Force -ErrorAction SilentlyContinue } if(!(Test-Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\2a737441-1930-4402-8d77-b2bebba308a3\\d4e98f31-5ffe-4ce1-be31-1b38b384c009\\DefaultPowerSchemeValues\\8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c\")){ New-Item -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\2a737441-1930-4402-8d77-b2bebba308a3\\d4e98f31-5ffe-4ce1-be31-1b38b384c009\\DefaultPowerSchemeValues\\8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c\" -Force -ErrorAction SilentlyContinue } New-ItemProperty -LiteralPath 'HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching' -Name 'SearchOrderConfig' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue; New-ItemProperty -LiteralPath 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power' -Name 'HiberbootEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue; New-ItemProperty -LiteralPath 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling' -Name 'PowerThrottlingOff' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue; New-ItemProperty -LiteralPath 'HKCU:\\System\\GameConfigStore' -Name 'GameDVR_Enabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue; New-ItemProperty -LiteralPath 'HKCU:\\System\\GameConfigStore' -Name 'GameDVR_FSEBehaviorMode' -Value 2 -PropertyType DWord -Force -ea SilentlyContinue; New-ItemProperty -LiteralPath 'HKCU:\\System\\GameConfigStore' -Name 'Win32_AutoGameModeDefaultProfile' -Value ([byte[]](0x01,0x00,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00)) -PropertyType Binary -Force -ea SilentlyContinue;"
+    "Command": "if (!(Test-Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching\")) { New-Item -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching\" -Force -ErrorAction SilentlyContinue }; if (!(Test-Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power\")) { New-Item -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power\" -Force -ErrorAction SilentlyContinue }; if (!(Test-Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\")) { New-Item -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\" -Force -ErrorAction SilentlyContinue }; if (!(Test-Path \"HKCU:\\System\\GameConfigStore\")) { New-Item -Path \"HKCU:\\System\\GameConfigStore\" -Force -ErrorAction SilentlyContinue }; if (!(Test-Path \"HKCU:\\Control Panel\\Desktop\")) { New-Item -Path \"HKCU:\\Control Panel\\Desktop\" -Force -ErrorAction SilentlyContinue }; if (!(Test-Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\54533251-82be-4824-96c1-47b60b740d00\\943c8cb6-6f93-4227-ad87-e9a3feec08d1\")) { New-Item -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\54533251-82be-4824-96c1-47b60b740d00\\943c8cb6-6f93-4227-ad87-e9a3feec08d1\" -Force -ErrorAction SilentlyContinue }; if (!(Test-Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\2a737441-1930-4402-8d77-b2bebba308a3\\d4e98f31-5ffe-4ce1-be31-1b38b384c009\\DefaultPowerSchemeValues\\8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c\")) { New-Item -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\2a737441-1930-4402-8d77-b2bebba308a3\\d4e98f31-5ffe-4ce1-be31-1b38b384c009\\DefaultPowerSchemeValues\\8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c\" -Force -ErrorAction SilentlyContinue }; New-ItemProperty -LiteralPath 'HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching' -Name 'SearchOrderConfig' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue; New-ItemProperty -LiteralPath 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power' -Name 'HiberbootEnabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue; New-ItemProperty -LiteralPath 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling' -Name 'PowerThrottlingOff' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue; New-ItemProperty -LiteralPath 'HKCU:\\System\\GameConfigStore' -Name 'GameDVR_Enabled' -Value 0 -PropertyType DWord -Force -ea SilentlyContinue; New-ItemProperty -LiteralPath 'HKCU:\\System\\GameConfigStore' -Name 'GameDVR_FSEBehaviorMode' -Value 2 -PropertyType DWord -Force -ea SilentlyContinue; New-ItemProperty -LiteralPath 'HKCU:\\System\\GameConfigStore' -Name 'Win32_AutoGameModeDefaultProfile' -Value ([byte[]](0x01,0x00,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00)) -PropertyType Binary -Force -ea SilentlyContinue;"
   },
   {
     "Nome": "Disabilita GameDVR_HonorUserFSEBehaviorMode",
