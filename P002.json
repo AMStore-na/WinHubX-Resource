@@ -87,7 +87,6 @@
     {
         "Nome": "Disattivazioni Gruppi",
         "Command": [
-          "PSArray",
           "$groups = @(",
           "    'Accessibility'",
           "    'AppSync'",
