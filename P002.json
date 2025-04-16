@@ -97,11 +97,14 @@
     {
       "Nome": "Disattiva accesso in background delle app predefinite",
       "Command": [
-        "foreach ($key in (Get-ChildItem \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\")) {",
-        "    Set-ItemProperty -Path (\"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\" + $key.PSChildName) -Name \"Disabled\" -Value 1",
+        "$basePath = \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\"",
+        "if (Test-Path $basePath) {",
+        "    foreach ($key in Get-ChildItem $basePath) {",
+        "        Set-ItemProperty -Path \"$basePath\\$($key.PSChildName)\" -Name \"Disabled\" -Value 1 -ErrorAction SilentlyContinue",
+        "    }",
         "}"
       ]
-    },
+    },    
     {
       "Nome": "Disattiva reporting di Windows Error",
       "Command": [
@@ -110,25 +113,27 @@
       ]
     },
     {
-        "Nome": "Disattivazioni Gruppi",
-        "Command": [
-            "$groups = @(", 
-            "    'Accessibility'", 
-            "    'AppSync'", 
-            "    'BrowserSettings'", 
-            "    'DesktopTheme'", 
-            "    'Language'", 
-            "    'PackageState'", 
-            "    'Personalization'", 
-            "    'StartLayout'", 
-            "    'Windows'", 
-            ")", 
-            "",
-            "foreach ($group in $groups) {", 
-            "    $regPath = \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Group Policy\\State\\Machine\\$group\"",
-            "    Remove-Item -Path $regPath -Recurse -Force -ErrorAction SilentlyContinue", 
-            "}"
-        ]
+      "Nome": "Disattivazioni Gruppi",
+      "Command": [
+        "$groups = @(", 
+        "    'Accessibility'", 
+        "    'AppSync'", 
+        "    'BrowserSettings'", 
+        "    'DesktopTheme'", 
+        "    'Language'", 
+        "    'PackageState'", 
+        "    'Personalization'", 
+        "    'StartLayout'", 
+        "    'Windows'", 
+        ")", 
+        "",
+        "foreach ($group in $groups) {", 
+        "    $regPath = \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Group Policy\\State\\Machine\\$group\"",
+        "    if (Test-Path $regPath) {",
+        "        Remove-Item -Path $regPath -Recurse -Force -ErrorAction SilentlyContinue",
+        "    }",
+        "}"
+      ]
     },     
     {
      "Nome": "Disattivazioni Task",
