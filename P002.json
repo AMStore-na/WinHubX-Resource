@@ -97,16 +97,16 @@
     {
       "Nome": "Disattiva accesso in background delle app predefinite",
       "Command": [
-        "foreach ($key in (Get-ChildItem \"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\BackgroundAccessApplications\")) {",
-        "    Set-ItemProperty -Path (\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\BackgroundAccessApplications\\\\\" + $key.PSChildName) -Name \"Disabled\" -Value 1",
+        "foreach ($key in (Get-ChildItem \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\")) {",
+        "    Set-ItemProperty -Path (\"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\" + $key.PSChildName) -Name \"Disabled\" -Value 1",
         "}"
       ]
     },
     {
       "Nome": "Disattiva reporting di Windows Error",
       "Command": [
-        "Set-ItemProperty -Path \"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\Windows Error Reporting\" -Name \"Disabled\" -Type DWord -Value 1",
-        "Disable-ScheduledTask -TaskName \"Microsoft\\\\Windows\\\\Windows Error Reporting\\\\QueueReporting\""
+        "Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting\" -Name \"Disabled\" -Type DWord -Value 1",
+        "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Windows Error Reporting\\QueueReporting\""
       ]
     },
     {
@@ -125,7 +125,7 @@
             ")", 
             "",
             "foreach ($group in $groups) {", 
-            "    $regPath = \"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Group Policy\\\\State\\\\Machine\\\\$group\"",
+            "    $regPath = \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Group Policy\\State\\Machine\\$group\"",
             "    Remove-Item -Path $regPath -Recurse -Force -ErrorAction SilentlyContinue", 
             "}"
         ]
@@ -194,6 +194,31 @@
     "    Disable-ScheduledTask -TaskName $task -ErrorAction SilentlyContinue",
     "}"
 ]
+    },
+    {
+      "Nome": "Disattivo sincronizzazione",
+      "microsoft": "true",
+      "Command": [
+        "Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SettingSync' 'BackupPolicy' 0x3c",
+        "Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SettingSync' 'DeviceMetadataUploaded' 0",
+        "Set-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\SettingSync' 'PriorLogons' 1"
+      ]
+    },
+    {
+      "Nome": "Disabilita OneDrive",
+      "Command": [
+        "Stop-Process -Name *onedrive* -ErrorAction SilentlyContinue -Force",
+        "Start-Sleep -Seconds 2",
+        "$onedrive = \"$env:SYSTEMROOT\\SysWOW64\\OneDriveSetup.exe\"",
+        "If (!(Test-Path $onedrive)) { $onedrive = \"$env:SYSTEMROOT\\System32\\OneDriveSetup.exe\" }",
+        "Start-Process $onedrive \"/uninstall\" -NoNewWindow -Wait",
+        "Start-Sleep -Seconds 2",
+        "Restart-Process -Process \"explorer\" -Restart -RestartDelay 5",
+        "Start-Sleep -Seconds 2",
+        "If (!(Test-Path \"HKCR:\")) { New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT }",
+        "Remove-Item -Path \"HKCR:\\CLSID\\{018D5C66-4533-4307-9B53-224DE2ED1FE6}\" -Recurse -ErrorAction SilentlyContinue",
+        "Remove-Item -Path \"HKCR:\\Wow6432Node\\CLSID\\{018D5C66-4533-4307-9B53-224DE2ED1FE6}\" -Recurse -ErrorAction SilentlyContinue"
+      ]
     }
   ]
 }

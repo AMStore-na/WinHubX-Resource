@@ -28,11 +28,11 @@
   },
   {
     "Nome": "Crea chiave CloudContent se mancante e disattiva funzionalità consumer",
-    "Command": "If (!(Test-Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\CloudContent\\\")) { New-Item -Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\CloudContent\\\" -Force | Out-Null }; Set-ItemProperty -Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\CloudContent\\\" -Name \\\"DisableWindowsConsumerFeatures\\\" -Type DWord -Value 1"
+    "Command": "If (!(Test-Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent\")) { New-Item -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent\" -Force | Out-Null }; Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent\" -Name \"DisableWindowsConsumerFeatures\" -Type DWord -Value 1"
   },
   {
     "Nome": "Disattiva cronologia attività",
-    "Command": "Set-ItemProperty -Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\System\\\" -Name \\\"EnableActivityFeed\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\System\\\" -Name \\\"PublishUserActivities\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\System\\\" -Name \\\"UploadUserActivities\\\" -Type DWord -Value 0"
+    "Command": "Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System\" -Name \"EnableActivityFeed\" -Type DWord -Value 0; Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System\" -Name \"PublishUserActivities\" -Type DWord -Value 0; Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System\" -Name \"UploadUserActivities\" -Type DWord -Value 0"
   },
   {
     "Nome": "Disattiva tracciamento posizione",
@@ -40,63 +40,63 @@
   },
   {
     "Nome": "Disattiva aggiornamenti automatici delle mappe",
-    "Command": "Set-ItemProperty -Path \\\"HKLM:\\\\SYSTEM\\\\Maps\\\" -Name \\\"AutoUpdateEnabled\\\" -Type DWord -Value 0"
+    "Command": "Set-ItemProperty -Path \"HKLM:\\SYSTEM\\Maps\" -Name \"AutoUpdateEnabled\" -Type DWord -Value 0"
   },
   {
     "Nome": "Disattiva feedback utente",
-    "Command": "If (!(Test-Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Siuf\\\\Rules\\\")) { New-Item -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Siuf\\\\Rules\\\" -Force | Out-Null }; Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Siuf\\\\Rules\\\" -Name \\\"NumberOfSIUFInPeriod\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\DataCollection\\\" -Name \\\"DoNotShowFeedbackNotifications\\\" -Type DWord -Value 1; Disable-ScheduledTask -TaskName \\\"Microsoft\\\\Windows\\\\Feedback\\\\Siuf\\\\DmClient\\\" -ErrorAction SilentlyContinue | Out-Null; Disable-ScheduledTask -TaskName \\\"Microsoft\\\\Windows\\\\Feedback\\\\Siuf\\\\DmClientOnScenarioDownload\\\" -ErrorAction SilentlyContinue | Out-Null"
+    "Command": "If (!(Test-Path \"HKCU:\\SOFTWARE\\Microsoft\\Siuf\\Rules\")) { New-Item -Path \"HKCU:\\SOFTWARE\\Microsoft\\Siuf\\Rules\" -Force | Out-Null }; Set-ItemProperty -Path \"HKCU:\\SOFTWARE\\Microsoft\\Siuf\\Rules\" -Name \"NumberOfSIUFInPeriod\" -Type DWord -Value 0; Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection\" -Name \"DoNotShowFeedbackNotifications\" -Type DWord -Value 1; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Feedback\\Siuf\\DmClient\" -ErrorAction SilentlyContinue | Out-Null; Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Feedback\\Siuf\\DmClientOnScenarioDownload\" -ErrorAction SilentlyContinue | Out-Null"
   },
   {
     "Nome": "Disattiva esperienze personalizzate con i dati diagnostici",
-    "Command": "If (!(Test-Path \\\"HKCU:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\CloudContent\\\")) { New-Item -Path \\\"HKCU:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\CloudContent\\\" -Force | Out-Null }; Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\CloudContent\\\" -Name \\\"DisableTailoredExperiencesWithDiagnosticData\\\" -Type DWord -Value 1"
+    "Command": "If (!(Test-Path \"HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent\")) { New-Item -Path \"HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent\" -Force | Out-Null }; Set-ItemProperty -Path \"HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent\" -Name \"DisableTailoredExperiencesWithDiagnosticData\" -Type DWord -Value 1"
   },
   {
     "Nome": "Disattiva ID pubblicitario",
-    "Command": "If (!(Test-Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\AdvertisingInfo\\\")) { New-Item -Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\AdvertisingInfo\\\" | Out-Null }; Set-ItemProperty -Path \\\"HKLM:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\AdvertisingInfo\\\" -Name \\\"DisabledByGroupPolicy\\\" -Type DWord -Value 1"
+    "Command": "If (!(Test-Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\AdvertisingInfo\")) { New-Item -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\AdvertisingInfo\" | Out-Null }; Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\AdvertisingInfo\" -Name \"DisabledByGroupPolicy\" -Type DWord -Value 1"
   },
   {
     "Nome": "Disattiva e ferma il servizio di tracciamento diagnostico",
-    "Command": "Stop-Service \\\"DiagTrack\\\" -WarningAction SilentlyContinue; Set-Service \\\"DiagTrack\\\" -StartupType Disabled"
+    "Command": "Stop-Service \"DiagTrack\" -WarningAction SilentlyContinue; Set-Service \"DiagTrack\" -StartupType Disabled"
   },
   {
     "Nome": "Disattiva e ferma il servizio WAP Push",
-    "Command": "Stop-Service \\\"dmwappushservice\\\" -WarningAction SilentlyContinue; Set-Service \\\"dmwappushservice\\\" -StartupType Disabled"
+    "Command": "Stop-Service \"dmwappushservice\" -WarningAction SilentlyContinue; Set-Service \"dmwappushservice\" -StartupType Disabled"
   },
   {
     "Nome": "Disattiva Assistenza remota",
-    "Command": "Set-ItemProperty -Path \\\"HKLM:\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\\Remote Assistance\\\" -Name \\\"fAllowToGetHelp\\\" -Type DWord -Value 0"
+    "Command": "Set-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Remote Assistance\" -Name \"fAllowToGetHelp\" -Type DWord -Value 0"
   },
   {
     "Nome": "Disattiva Storage Sense",
-    "Command": "Remove-Item -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\StorageSense\\\\Parameters\\\\StoragePolicy\\\" -Recurse -ErrorAction SilentlyContinue"
+    "Command": "Remove-Item -Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\StorageSense\\Parameters\\StoragePolicy\" -Recurse -ErrorAction SilentlyContinue"
   },
   {
     "Nome": "Mostra dettagli delle operazioni sui file",
-    "Command": "If (!(Test-Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\OperationStatusManager\\\")) { New-Item -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\OperationStatusManager\\\" | Out-Null }; Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\OperationStatusManager\\\" -Name \\\"EnthusiastMode\\\" -Type DWord -Value 1"
+    "Command": "If (!(Test-Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\OperationStatusManager\")) { New-Item -Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\OperationStatusManager\" | Out-Null }; Set-ItemProperty -Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\OperationStatusManager\" -Name \"EnthusiastMode\" -Type DWord -Value 1"
   },
   {
     "Nome": "Nascondi il pulsante della vista attività",
-    "Command": "Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\Advanced\\\" -Name \\\"ShowTaskViewButton\\\" -Type DWord -Value 0"
+    "Command": "Set-ItemProperty -Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" -Name \"ShowTaskViewButton\" -Type DWord -Value 0"
   },
   {
     "Nome": "Nascondi l'icona delle persone",
-    "Command": "If (!(Test-Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\Advanced\\\\People\\\")) { New-Item -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\Advanced\\\\People\\\" | Out-Null }; Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\Advanced\\\\People\\\" -Name \\\"PeopleBand\\\" -Type DWord -Value 0"
+    "Command": "If (!(Test-Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\People\")) { New-Item -Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\People\" | Out-Null }; Set-ItemProperty -Path \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\People\" -Name \"PeopleBand\" -Type DWord -Value 0"
   },
   {
     "Nome": "Nascondi l'icona degli oggetti 3D da Questo PC",
-    "Command": "Remove-Item -Path \\\"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\MyComputer\\\\NameSpace\\\\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}\\\" -Recurse -ErrorAction SilentlyContinue"
+    "Command": "Remove-Item -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\MyComputer\\NameSpace\\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}\" -Recurse -ErrorAction SilentlyContinue"
   },
   {
     "Nome": "Modifica parametri di rete TCP/IP",
-    "Command": "Set-ItemProperty -Path \\\"HKLM:\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\LanmanServer\\\\Parameters\\\" -Name \\\"SizReqBuf\\\" -Type DWord -Value 17424; Set-ItemProperty -Path \\\"HKLM:\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\Tcpip\\\\Parameters\\\" -Name DefaultTTL -Value 64; Set-ItemProperty -Path \\\"HKLM:\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\Tcpip\\\\Parameters\\\" -Name TCP1323Opts -Value 1; Set-ItemProperty -Path \\\"HKLM:\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\Tcpip\\\\Parameters\\\" -Name MaxFreeTcbs -Value 65536; Set-ItemProperty -Path \\\"HKLM:\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\Tcpip\\\\Parameters\\\" -Name MaxUserPort -Value 65534; Set-ItemProperty -Path \\\"HKLM:\\\\SYSTEM\\\\CurrentControlSet\\\\Services\\\\Tcpip\\\\Parameters\\\" -Name GlobalMaxTcpWindowSize -Value 65535; Set-ItemProperty -Path \\\"HKLM:\\\\SYSTEM\\\\CurrentControlSet\\\\Control\\\" -Name \\\"SvcHostSplitThresholdInKB\\\" -Type DWord -Value 4194304"
+    "Command": "Set-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters\" -Name \"SizReqBuf\" -Type DWord -Value 17424; Set-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\" -Name DefaultTTL -Value 64; Set-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\" -Name TCP1323Opts -Value 1; Set-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\" -Name MaxFreeTcbs -Value 65536; Set-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\" -Name MaxUserPort -Value 65534; Set-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\" -Name GlobalMaxTcpWindowSize -Value 65535; Set-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\" -Name \"SvcHostSplitThresholdInKB\" -Type DWord -Value 4194304"
   },
   {
     "Nome": "Disabilita Notizie e Interessi",
-    "Command": "If (!(Test-Path \\\"HKCU:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\Windows Feeds\\\")) { New-Item -Path \\\"HKCU:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\Windows Feeds\\\" -Force | Out-Null }; Set-ItemProperty -Path \\\"HKCU:\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows\\\\Windows Feeds\\\" -Name \\\"EnableFeeds\\\" -Type DWord -Value 0; Set-ItemProperty -Path \\\"HKCU:\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Feeds\\\" -Name \\\"ShellFeedsTaskbarViewMode\\\" -Type DWord -Value 2"
+    "Command": "If (!(Test-Path \"HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\")) { New-Item -Path \"HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\" -Force | Out-Null }; Set-ItemProperty -Path \"HKCU:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\" -Name \"EnableFeeds\" -Type DWord -Value 0; Set-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Feeds\" -Name \"ShellFeedsTaskbarViewMode\" -Type DWord -Value 2"
   },
   {
     "Nome": "Rimuovi il pulsante Meet Now dalla barra delle applicazioni",
-    "Command": "If (!(Test-Path \\\"HKCU:\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Policies\\\\Explorer\\\")) { New-Item -Path \\\"HKCU:\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Policies\\\\Explorer\\\" -Force | Out-Null }; Set-ItemProperty -Path \\\"HKCU:\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Policies\\\\Explorer\\\" -Name \\\"HideSCAMeetNow\\\" -Type DWord -Value 1"
+    "Command": "If (!(Test-Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\")) { New-Item -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\" -Force | Out-Null }; Set-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\" -Name \"HideSCAMeetNow\" -Type DWord -Value 1"
   },
   {
     "Nome": "Disabilita ID Pubblicitari",
@@ -137,10 +137,6 @@
   {
     "Nome": "Disabilita OneDrive",
     "Command": "if (Test-Path 'C:\\Windows\\debloatapp.pref') { If (!(Test-Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\OneDrive')) { New-Item -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\OneDrive' | Out-Null }; Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\OneDrive' -Name 'DisableFileSyncNGSC' -Type DWord -Value 1; }"
-  },
-  {
-    "Nome": "Disabilita OneDrive",
-    "Command": "Stop-Process -Name *onedrive* -ErrorAction SilentlyContinue -Force; Start-Sleep -Seconds 2; $onedrive = \"$env:SYSTEMROOT\\SysWOW64\\OneDriveSetup.exe\"; If (!(Test-Path $onedrive)) { $onedrive = \"$env:SYSTEMROOT\\System32\\OneDriveSetup.exe\" }; Start-Process $onedrive \"/uninstall\" -NoNewWindow -Wait; Start-Sleep -Seconds 2; Restart-Process -Process \"explorer\" -Restart -RestartDelay 5; Start-Sleep -Seconds 2; If (!(Test-Path \"HKCR:\")) { New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null }; Remove-Item -Path \"HKCR:\\CLSID\\{018D5C66-4533-4307-9B53-224DE2ED1FE6}\" -Recurse -ErrorAction SilentlyContinue; Remove-Item -Path \"HKCR:\\Wow6432Node\\CLSID\\{018D5C66-4533-4307-9B53-224DE2ED1FE6}\" -Recurse -ErrorAction SilentlyContinue; If ((Get-ChildItem \"$env:userprofile\\OneDrive\" -Recurse | Measure-Object).Count -gt 0) { [Void][System.Windows.Forms.MessageBox]::Show(\"Hey, you still have your files in OneDrive folder!\", \"\", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Warning) }"
   },
   {
     "Nome": "Disabilita MMAgent",
