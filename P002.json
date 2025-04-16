@@ -97,7 +97,7 @@
     {
       "Nome": "Disattiva accesso in background delle app predefinite",
       "Command": [
-        "$basePath = \"HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications\"",
+        "$basePath = 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications'",
         "if (Test-Path $basePath) {",
         "    foreach ($key in Get-ChildItem $basePath) {",
         "        Set-ItemProperty -Path \"$basePath\\$($key.PSChildName)\" -Name \"Disabled\" -Value 1 -ErrorAction SilentlyContinue",
@@ -108,8 +108,8 @@
     {
       "Nome": "Disattiva reporting di Windows Error",
       "Command": [
-        "Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting\" -Name \"Disabled\" -Type DWord -Value 1",
-        "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Windows Error Reporting\\QueueReporting\""
+        "Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting' -Name \"Disabled\" -Type DWord -Value 1",
+        "Disable-ScheduledTask -TaskName 'Microsoft\\Windows\\Windows Error Reporting\\QueueReporting'"
       ]
     },
     {
