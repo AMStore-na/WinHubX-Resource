@@ -84,23 +84,31 @@
 ]
     },
     {
-     "Nome": "Disattivazione Telemetria",
-     "Command": [
-            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Application Experience\\Microsoft Compatibility Appraiser\"",
-            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Application Experience\\ProgramDataUpdater\"",
-            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Autochk\\Proxy\"",
-            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Customer Experience Improvement Program\\Consolidator\"",
-            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Customer Experience Improvement Program\\UsbCeip\"",
-            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\DiskDiagnostic\\Microsoft-Windows-DiskDiagnosticDataCollector\""
-     ]
+      "Nome": "Disattivazione Telemetria",
+      "Command": [
+        "Disable-ScheduledTask -TaskName \"Microsoft\\\\Windows\\\\Application Experience\\\\Microsoft Compatibility Appraiser\"",
+        "Disable-ScheduledTask -TaskName \"Microsoft\\\\Windows\\\\Application Experience\\\\ProgramDataUpdater\"",
+        "Disable-ScheduledTask -TaskName \"Microsoft\\\\Windows\\\\Autochk\\\\Proxy\"",
+        "Disable-ScheduledTask -TaskName \"Microsoft\\\\Windows\\\\Customer Experience Improvement Program\\\\Consolidator\"",
+        "Disable-ScheduledTask -TaskName \"Microsoft\\\\Windows\\\\Customer Experience Improvement Program\\\\UsbCeip\"",
+        "Disable-ScheduledTask -TaskName \"Microsoft\\\\Windows\\\\DiskDiagnostic\\\\Microsoft-Windows-DiskDiagnosticDataCollector\""
+      ]
     },
     {
-        "Nome": "Disattiva reporting di Windows Error",
-        "Command":  [
-            "Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\Windows Error Reporting\" -Name \"Disabled\" -Type DWord -Value 1",
-            "Disable-ScheduledTask -TaskName \"Microsoft\\Windows\\Windows Error Reporting\\QueueReporting\""
-          ]
-       },
+      "Nome": "Disattiva accesso in background delle app predefinite",
+      "Command": [
+        "foreach ($key in (Get-ChildItem \"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\BackgroundAccessApplications\")) {",
+        "    Set-ItemProperty -Path (\"HKCU:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\BackgroundAccessApplications\\\\\" + $key.PSChildName) -Name \"Disabled\" -Value 1",
+        "}"
+      ]
+    },
+    {
+      "Nome": "Disattiva reporting di Windows Error",
+      "Command": [
+        "Set-ItemProperty -Path \"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\Windows Error Reporting\" -Name \"Disabled\" -Type DWord -Value 1",
+        "Disable-ScheduledTask -TaskName \"Microsoft\\\\Windows\\\\Windows Error Reporting\\\\QueueReporting\""
+      ]
+    },
     {
         "Nome": "Disattivazioni Gruppi",
         "Command": [
@@ -117,7 +125,7 @@
             ")", 
             "",
             "foreach ($group in $groups) {", 
-            "    $regPath = \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Group Policy\\State\\Machine\\$group\"",
+            "    $regPath = \"HKLM:\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Group Policy\\\\State\\\\Machine\\\\$group\"",
             "    Remove-Item -Path $regPath -Recurse -Force -ErrorAction SilentlyContinue", 
             "}"
         ]
