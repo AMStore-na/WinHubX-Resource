@@ -68,7 +68,7 @@
     },
     {
         "Nome": "Imposta boot menupolicy su Legacy",
-        "Command": "bcdedit.exe /set {current} bootmenupolicy Legacy"
+        "Command": "C:\\Windows\\System32\\bcdedit.exe /set {current} bootmenupolicy Legacy"
     },
     {
         "Nome": "Disabilita prelaunch di Microsoft Edge",
@@ -115,24 +115,8 @@
         "Command": "powershell -command \"$regKeyPath='HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager';$exportedRegFile='exportedRegFile.reg';reg export $regKeyPath $exportedRegFile;((Get-Content $exportedRegFile) -replace '=dword:00000001','=dword:00000000') | Set-Content $exportedRegFile;reg import $exportedRegFile;Remove-Item $exportedRegFile\""
     },
     {
-        "Nome": "Elimina collegamenti sulla Scrivania",
-        "Command": "del /s /q \"C:\\Users\\%username%\\Desktop\\*.lnk\""
-    },
-    {
-        "Nome": "Esporta e modifica ContentDeliveryManager",
-        "Command": "set regKeyPath=HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\nset exportedRegFile=ContentDeliveryManager.reg\nreg query \"%regKeyPath%\" >nul 2>&1\nif %errorlevel% equ 0 (\n    powershell -command \"$regKeyPath='%regKeyPath%';$exportedRegFile='%exportedRegFile%';reg export $regKeyPath $exportedRegFile;((Get-Content $exportedRegFile) -replace '=dword:00000001','=dword:00000000') | Set-Content $exportedRegFile;reg import $exportedRegFile;Remove-Item $exportedRegFile\"\n)"
-    },
-    {
         "Nome": "Esporta e modifica CloudContent",
         "Command": "set regKeyPath=HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent\nset exportedRegFile=CloudContent.reg\nreg query \"%regKeyPath%\" >nul 2>&1\nif %errorlevel% equ 0 (\n    powershell -command \"$regKeyPath='%regKeyPath%';$exportedRegFile='%exportedRegFile%';reg export $regKeyPath $exportedRegFile;((Get-Content $exportedRegFile) -replace '=dword:00000001','=dword:00000000') | Set-Content $exportedRegFile;reg import $exportedRegFile;Remove-Item $exportedRegFile\"\n)"
-    },
-    {
-        "Nome": "Termina SearchUI.exe",
-        "Command": "taskkill /F /IM SearchUI.exe"
-    },
-    {
-        "Nome": "Nascondi Cortana",
-        "Command": "move \"%windir%\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy\" \"%windir%\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy.bak\""
     },
     {
         "Nome": "Configura vari servizi di Windows",
@@ -171,10 +155,6 @@
         "Command": "powercfg -change standby-timeout-ac 0"
     },
     {
-        "Nome": "Termina processi ad alta memoria",
-        "Command": "for /f \"tokens=1\" %%a in ('tasklist /FI \"STATUS eq running\" /FI \"MEMUSAGE ge 100000\"') do (\ntaskkill /F /IM %%a\n)"
-    },
-    {
         "Nome": "Disabilita ShowAllAds",
         "Command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\Folder\\Hidden\" /v ShowAllAds /t REG_DWORD /d 0 /f"
     },
@@ -205,7 +185,7 @@
     {
         "Nome": "Disattivazione scadenza pw",
         "microsoft":"false",
-        "Command": "wmic UserAccount set PasswordExpires=False"
+        "Command": "C:\\Windows\\System32\\wbem\\wmic UserAccount set PasswordExpires=False"
     },
     {
         "Nome": "Aggiungi o modifica le proprietà nei registri",

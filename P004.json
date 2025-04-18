@@ -32,6 +32,41 @@
             "C:\\ToolAIMODS\\PowerRun.exe cmd.exe /c \"reg add \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize\" /v \"EnableTransparency\" /t REG_DWORD /d 1 /f\"",
             "C:\\ToolAIMODS\\PowerRun.exe cmd.exe /c \"reg query \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"UseOLEDTaskbarTransparency\" >nul 2>&1 || reg add \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"UseOLEDTaskbarTransparency\" /t REG_DWORD /d 1 /f\""
         ]
+    },
+    {
+        "Nome": "Esporta e modifica ContentDeliveryManager",
+        "Command": [
+          "set regKeyPath=HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "set exportedRegFile=ContentDeliveryManager.reg",
+          "reg query \"%regKeyPath%\"",
+          "if %errorlevel% equ 0 (",
+          "  powershell -command \"$regKeyPath='%regKeyPath%';$exportedRegFile='%exportedRegFile%';reg export $regKeyPath $exportedRegFile;((Get-Content $exportedRegFile) -replace '=dword:00000001','=dword:00000000') | Set-Content $exportedRegFile;reg import $exportedRegFile;Remove-Item $exportedRegFile\"",
+          ")"
+        ]
+    },
+    {
+        "Nome": "Disattiva e Nascondi Cortana",
+        "Command": [
+          "taskkill /F /IM SearchUI.exe",
+          "move \"%windir%\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy\" \"%windir%\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy.bak\""
+        ]
+    },
+    {
+        "Nome": "Stop OneDrive",
+        "Command": [
+          "powershell -command \"Get-Process OneDrive | Stop-Process -Force\"",
+          "powershell -command \"C:\\Windows\\System32\\OneDriveSetup.exe /uninstall\""
+        ]
+    },
+    {
+        "Nome": "Termina processi ad alta memoria",
+        "Command": [
+          "for /f \"tokens=1\" %%a in ('tasklist /FI \"STATUS eq running\" /FI \"MEMUSAGE ge 100000\"') do (",
+          "  taskkill /F /IM %%a",
+          ")"
+        ]
     }
-    ]
+      
+    
+ ]
 }
