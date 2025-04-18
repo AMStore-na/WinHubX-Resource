@@ -67,10 +67,6 @@
         "Command": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\" /v EnableFeeds /t REG_DWORD /d 0 /f"
     },
     {
-        "Nome": "Imposta boot menupolicy su Legacy",
-        "Command": "C:\\Windows\\System32\\bcdedit.exe /set {current} bootmenupolicy Legacy"
-    },
-    {
         "Nome": "Disabilita prelaunch di Microsoft Edge",
         "Command": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main\" /v AllowPrelaunch /t REG_DWORD /d \"0\" /f"
     },
@@ -129,10 +125,6 @@
     {
         "Nome": "Rimuove pacchetti Appx",
         "Command": "powershell -command \"$ErrorActionPreference = 'SilentlyContinue'; Get-AppxPackage -AllUsers | Where-Object {$_.name -notmatch 'Microsoft.VP9VideoExtensions|Notepad|Microsoft.WebMediaExtensions|Microsoft.WebpImageExtension|Microsoft.Windows.ShellExperienceHost|Microsoft.VCLibs*|Microsoft.DesktopAppInstaller|Microsoft.StorePurchaseApp|Microsoft.Windows.Photos|Microsoft.WindowsStore|Microsoft.XboxIdentityProvider|Microsoft.WindowsCalculator|Microsoft.HEIFImageExtension|Microsoft.UI.Xaml*'} | Remove-AppxPackage\""
-    },
-    {
-        "Nome": "Stop OneDrive",
-        "Command": "powershell -command \"Get-Process OneDrive | Stop-Process -Force\"\npowershell -command \"C:\\Windows\\System32\\OneDriveSetup.exe /uninstall\""
     },
     {
         "Nome": "Nascondi Cortana (secondo controllo)",

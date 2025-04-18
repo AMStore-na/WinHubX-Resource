@@ -1,0 +1,42 @@
+{
+  "Description": "Rimozione di acluni WindowsPackage",
+  "Order": "P000",
+  "CMD": [
+    {
+        "Nome": "Rimozione Internet Explorer",
+        "Command": "powershell -Command \"Get-WindowsPackage -Online | Where-Object {$_.PackageName -like 'Microsoft-Windows-InternetExplorer-Optional-Package*'} | ForEach-Object { dism /Online /Remove-Package /PackageName:$($_.PackageName) /NoRestart }\""
+      },
+      {
+        "Nome": "Rimozione Kernel LA57",
+        "Command": "powershell -Command \"Get-WindowsPackage -Online | Where-Object {$_.PackageName -like 'Microsoft-Windows-Kernel-LA57-FoD*'} | ForEach-Object {dism /Online /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+      },
+      {
+        "Nome": "Rimozione Scrittura Manuale",
+        "Command": "powershell -Command \"Get-WindowsPackage -Online | Where-Object {$_.PackageName -like 'Microsoft-Windows-LanguageFeatures-Handwriting*'} | ForEach-Object {dism /Online /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+      },
+      {
+        "Nome": "Rimozione OCR",
+        "Command": "powershell -Command \"Get-WindowsPackage -Online | Where-Object {$_.PackageName -like 'Microsoft-Windows-LanguageFeatures-OCR*'} | ForEach-Object {dism /Online /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+      },
+      {
+        "Nome": "Rimozione Speech Recognition",
+        "Command": "powershell -Command \"Get-WindowsPackage -Online | Where-Object {$_.PackageName -like 'Microsoft-Windows-LanguageFeatures-Speech*'} | ForEach-Object {dism /Online /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+      },
+      {
+        "Nome": "Rimozione Sintesi Vocale (Text To Speech)",
+        "Command": "powershell -Command \"Get-WindowsPackage -Online | Where-Object {$_.PackageName -like 'Microsoft-Windows-LanguageFeatures-TextToSpeech*'} | ForEach-Object {dism /Online /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+      },
+      {
+        "Nome": "Rimozione Windows Media Player",
+        "Command": "powershell -Command \"Get-WindowsPackage -Online | Where-Object {$_.PackageName -like 'Microsoft-Windows-MediaPlayer-Package*'} | ForEach-Object {dism /Online /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+      },
+      {
+        "Nome": "Rimozione Tablet PC Math",
+        "Command": "powershell -Command \"Get-WindowsPackage -Online | Where-Object {$_.PackageName -like 'Microsoft-Windows-TabletPCMath-Package*'} | ForEach-Object {dism /Online /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+      },
+      {
+        "Nome": "Rimozione Wallpaper Estesi",
+        "Command": "powershell -Command \"Get-WindowsPackage -Online | Where-Object {$_.PackageName -like 'Microsoft-Windows-Wallpaper-Content-Extended-FoD*'} | ForEach-Object {dism /Online /Remove-Package /PackageName:$($_.PackageName) /NoRestart | Out-Null}\""
+      }
+  ]
+}

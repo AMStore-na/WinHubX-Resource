@@ -34,45 +34,13 @@
         ]
     },
     {
-        "Nome": "Esporta e modifica ContentDeliveryManager",
-        "Command": [
-          "set regKeyPath=HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
-          "set exportedRegFile=ContentDeliveryManager.reg",
-          "reg query \"%regKeyPath%\"",
-          "if %errorlevel% equ 0 (",
-          "  powershell -command \"$regKeyPath='%regKeyPath%';$exportedRegFile='%exportedRegFile%';",
-          "  reg export $regKeyPath $exportedRegFile;",
-          "  ((Get-Content $exportedRegFile) -replace '=dword:00000001','=dword:00000000') | Set-Content $exportedRegFile;",
-          "  reg import $exportedRegFile;",
-          "  Remove-Item $exportedRegFile\"",
-          ")"
-        ]
-    },      
-    {
-        "Nome": "Disattiva e Nascondi Cortana",
-        "Command": [
-          "taskkill /F /IM SearchUI.exe",
-          "move \"%windir%\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy\" \"%windir%\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy.bak\""
-        ]
-    },
-    {
-        "Nome": "Disinstalla OneDrive",
-        "Command": [
-          "powershell",
-          "-Command",
-          "Start-Process 'C:\\Windows\\System32\\OneDriveSetup.exe' -ArgumentList '/uninstall'"
-        ]
-    },
-    {
         "Nome": "Termina processi ad alta memoria",
         "Command": [
           "for /f \"skip=1 tokens=1,*\" %%a in ('tasklist /FI \\\"STATUS eq running\\\" /FI \\\"MEMUSAGE ge 100000\\\"') do (",
           "  taskkill /F /IM \"%%a\"",
           ")"
         ]
-      }
-      
-      
+    }
     
  ]
 }
