@@ -40,10 +40,14 @@
           "set exportedRegFile=ContentDeliveryManager.reg",
           "reg query \"%regKeyPath%\"",
           "if %errorlevel% equ 0 (",
-          "  powershell -command \"$regKeyPath='%regKeyPath%';$exportedRegFile='%exportedRegFile%';reg export $regKeyPath $exportedRegFile;((Get-Content $exportedRegFile) -replace '=dword:00000001','=dword:00000000') | Set-Content $exportedRegFile;reg import $exportedRegFile;Remove-Item $exportedRegFile\"",
+          "  powershell -command \"$regKeyPath='%regKeyPath%';$exportedRegFile='%exportedRegFile%';",
+          "  reg export $regKeyPath $exportedRegFile;",
+          "  ((Get-Content $exportedRegFile) -replace '=dword:00000001','=dword:00000000') | Set-Content $exportedRegFile;",
+          "  reg import $exportedRegFile;",
+          "  Remove-Item $exportedRegFile\"",
           ")"
         ]
-    },
+    },      
     {
         "Nome": "Disattiva e Nascondi Cortana",
         "Command": [
@@ -52,20 +56,22 @@
         ]
     },
     {
-        "Nome": "Stop OneDrive",
+        "Nome": "Disinstalla OneDrive",
         "Command": [
-          "powershell -command \"Get-Process OneDrive | Stop-Process -Force\"",
-          "powershell -command \"C:\\Windows\\System32\\OneDriveSetup.exe /uninstall\""
+          "powershell",
+          "-Command",
+          "Start-Process 'C:\\Windows\\System32\\OneDriveSetup.exe' -ArgumentList '/uninstall'"
         ]
     },
     {
         "Nome": "Termina processi ad alta memoria",
         "Command": [
-          "for /f \"tokens=1\" %%a in ('tasklist /FI \"STATUS eq running\" /FI \"MEMUSAGE ge 100000\"') do (",
-          "  taskkill /F /IM %%a",
+          "for /f \"skip=1 tokens=1,*\" %%a in ('tasklist /FI \\\"STATUS eq running\\\" /FI \\\"MEMUSAGE ge 100000\\\"') do (",
+          "  taskkill /F /IM \"%%a\"",
           ")"
         ]
-    }
+      }
+      
       
     
  ]
