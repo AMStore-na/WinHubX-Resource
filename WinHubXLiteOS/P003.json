@@ -177,7 +177,7 @@
     {
         "Nome": "Disattivazione scadenza pw",
         "microsoft":"false",
-        "Command": "wmic UserAccount set PasswordExpires=False"
+        "Command": "C:\\Windows\\System32\\wbem\\wmic UserAccount set PasswordExpires=False"
     },
     {
         "Nome": "Aggiungi o modifica le proprietà nei registri",
