@@ -21,3 +21,4 @@ powershell -Command "Start-Process 'C:\Windows\System32\OneDriveSetup.exe' -Argu
 
 echo Abilito F8
 bcdedit.exe /set {current} bootmenupolicy Legacy
+

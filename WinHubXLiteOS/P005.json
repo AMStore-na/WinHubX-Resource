@@ -1,0 +1,30 @@
+{
+  "Description": "Ottimizzazione sistema e gestione memoria",
+  "Order": "P005",
+  "CMD": [
+    {
+      "Nome": "Esegui processi di inattività",
+      "Command": "%windir%\\System32\\rundll32.exe advapi32.dll,ProcessIdleTasks"
+    },
+    {
+      "Nome": "Abilita LargeSystemCache",
+      "Command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\" /v LargeSystemCache /t REG_DWORD /d 1 /f"
+    },
+    {
+      "Nome": "Abilita cache scrittura disco",
+      "Command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\Partmgr\\Parameters\" /v EnableWriteCache /t REG_DWORD /d 1 /f"
+    },
+    {
+      "Nome": "Imposta effetti visivi su prestazioni",
+      "Command": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects\" /v VisualFXSetting /t REG_DWORD /d 2 /f"
+    },
+    {
+      "Nome": "Disabilita paging executive",
+      "Command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\" /v DisablePagingExecutive /t REG_DWORD /d 1 /f"
+    },
+    {
+      "Nome": "Scarica DLL inutilizzate dalla memoria",
+      "Command": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\" /v AlwaysUnloadDLL /t REG_DWORD /d 1 /f"
+    }
+  ]
+}

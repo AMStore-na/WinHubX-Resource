@@ -1,18 +1,36 @@
 {
     "Description": "Rimozione servizi e bloatware per Windows 11",
     "Order": "P003",
-    "CMD": [
-      {
-          "Nome": "Rimozione Internet Explorer su HDD",
-          "hdd": "true",
-          "Command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnablePrefetcher /t REG_DWORD /d \"0\" /f"
-      },
-      {
-          "Nome": "Rimozione Internet Explorer su SSD",
-          "hdd": "false",
-          "Command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnablePrefetcher /t REG_DWORD /d \"3\" /f"
-      },
-      {
+    "CMD": [        
+    {
+        "Nome": "Abilitazione su HDD con molta RAM",
+        "hdd": "true",
+        "4ram": "false",
+        "Command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnablePrefetcher /t REG_DWORD /d 3 /f",
+        "Command1": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnableSuperfetch /t REG_DWORD /d 1 /f"
+    },
+    {
+        "Nome": "Disattivazione su SSD con molta RAM",
+        "hdd": "false",
+        "4ram": "false",
+        "Command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnablePrefetcher /t REG_DWORD /d 0 /f",
+        "Command1": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnableSuperfetch /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Disattivazione su HDD con poca RAM",
+        "hdd": "true",
+        "4ram": "true",
+        "Command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnablePrefetcher /t REG_DWORD /d 0 /f",
+        "Command1": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnableSuperfetch /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Ottimizzazione su SSD con poca RAM",
+        "hdd": "false",
+        "4ram": "true",
+        "Command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnablePrefetcher /t REG_DWORD /d 1 /f",
+        "Command1": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnableSuperfetch /t REG_DWORD /d 1 /f"
+    },
+    {
         "Nome": "Verifica e crea la chiave DriverSearching",
         "Command": "reg query \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching\" >nul 2>&1 && if errorlevel 1 ( reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching\" /f )"
     },
@@ -135,6 +153,10 @@
         "Command": "reg add \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"ShowSyncProviderNotifications\" /t REG_DWORD /d 0 /f"
     },
     {
+        "Nome": "Disabilita Notifications",
+        "Command": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications\" /v \"ToastEnabled\" /t REG_DWORD /d 0 /f"
+    },
+    {
         "Nome": "Configura Memory Management",
         "Command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\" /v \"ClearPageFileAtShutdown\" /t REG_DWORD /d 1 /f"
     },
@@ -176,7 +198,6 @@
     },
     {
         "Nome": "Disattivazione scadenza pw",
-        "microsoft":"false",
         "Command": "C:\\Windows\\System32\\wbem\\wmic UserAccount set PasswordExpires=False"
     },
     {
