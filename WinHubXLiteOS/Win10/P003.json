@@ -1,0 +1,208 @@
+{
+    "Description": "Rimozione servizi e bloatware per Windows 10",
+    "Order": "P003",
+    "CMD": [        
+    {
+        "Nome": "Abilitazione su HDD con molta RAM",
+        "hdd": "true",
+        "4ram": "false",
+        "Command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnablePrefetcher /t REG_DWORD /d 3 /f",
+        "Command1": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnableSuperfetch /t REG_DWORD /d 1 /f"
+    },
+    {
+        "Nome": "Disattivazione su SSD con molta RAM",
+        "hdd": "false",
+        "4ram": "false",
+        "Command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnablePrefetcher /t REG_DWORD /d 0 /f",
+        "Command1": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnableSuperfetch /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Disattivazione su HDD con poca RAM",
+        "hdd": "true",
+        "4ram": "true",
+        "Command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnablePrefetcher /t REG_DWORD /d 0 /f",
+        "Command1": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnableSuperfetch /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Ottimizzazione su SSD con poca RAM",
+        "hdd": "false",
+        "4ram": "true",
+        "Command": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnablePrefetcher /t REG_DWORD /d 1 /f",
+        "Command1": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters\" /v EnableSuperfetch /t REG_DWORD /d 1 /f"
+    },
+    {
+        "Nome": "Verifica e crea la chiave DriverSearching",
+        "Command": "reg query \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching\" >nul 2>&1 && if errorlevel 1 ( reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching\" /f )"
+    },
+    {
+        "Nome": "Verifica e crea la chiave Power",
+        "hdd": "true",
+        "Command": "reg query \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power\" >nul 2>&1 && if errorlevel 1 ( reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power\" /f )"
+    },
+    {
+        "Nome": "Verifica e crea la chiave PowerThrottling",
+        "hdd": "true",
+        "Command": "reg query \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\" >nul 2>&1 && if errorlevel 1 ( reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\" /f )"
+    },
+    {
+        "Nome": "Verifica e crea la chiave GameConfigStore",
+        "Command": "reg query \"HKCU\\System\\GameConfigStore\" >nul 2>&1 && if errorlevel 1 ( reg add \"HKCU\\System\\GameConfigStore\" /f )"
+    },
+    {
+        "Nome": "Verifica e crea la chiave Desktop",
+        "Command": "reg query \"HKCU\\Control Panel\\Desktop\" >nul 2>&1 && if errorlevel 1 ( reg add \"HKCU\\Control Panel\\Desktop\" /f )"
+    },
+    {
+        "Nome": "Verifica e crea PowerSettings",
+        "Command": "reg query \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\54533251-82be-4824-96c1-47b60b740d00\\943c8cb6-6f93-4227-ad87-e9a3feec08d1\" >nul 2>&1 && if errorlevel 1 ( reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\54533251-82be-4824-96c1-47b60b740d00\\943c8cb6-6f93-4227-ad87-e9a3feec08d1\" /f )"
+    },
+    {
+        "Nome": "Verifica e crea DefaultPowerSchemeValues",
+        "Command": "reg query \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\2a737441-1930-4402-8d77-b2bebba308a3\\d4e98f31-5ffe-4ce1-be31-1b38b384c009\\DefaultPowerSchemeValues\\8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c\" >nul 2>&1 && if errorlevel 1 ( reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\2a737441-1930-4402-8d77-b2bebba308a3\\d4e98f31-5ffe-4ce1-be31-1b38b384c009\\DefaultPowerSchemeValues\\8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c\" /f )"
+    },
+    {
+        "Nome": "Disabilita GameDVR",
+        "Command": "reg add \"HKCU\\System\\GameConfigStore\" /v \"GameDVR_Enabled\" /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Configura GameDVR FSE Behavior Mode",
+        "Command": "reg add \"HKCU\\System\\GameConfigStore\" /v \"GameDVR_FSEBehaviorMode\" /t REG_DWORD /d 2 /f"
+    },
+    {
+        "Nome": "Configura StickyKeys",
+        "Command": "reg add \"HKCU\\Control Panel\\Accessibility\\StickyKeys\" /v Flags /t REG_SZ /d 506 /f"
+    },
+    {
+        "Nome": "Configura Keyboard Response",
+        "Command": "reg add \"HKCU\\Control Panel\\Accessibility\\Keyboard Response\" /v Flags /t REG_SZ /d 122 /f"
+    },
+    {
+        "Nome": "Configura ToggleKeys",
+        "Command": "reg add \"HKCU\\Control Panel\\Accessibility\\ToggleKeys\" /v Flags /t REG_SZ /d 58 /f"
+    },
+    {
+        "Nome": "Disabilita Feeds di Windows",
+        "Command": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Feeds\" /v EnableFeeds /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Disabilita prelaunch di Microsoft Edge",
+        "Command": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\MicrosoftEdge\\Main\" /v AllowPrelaunch /t REG_DWORD /d \"0\" /f"
+    },
+    {
+        "Nome": "Nascondi prima esperienza di Microsoft Edge",
+        "Command": "reg add \"HKLM\\SOFTWARE\\Policies\\Microsoft\\Edge\" /v HideFirstRunExperience /t REG_DWORD /d 1 /f"
+    },
+    {
+        "Nome": "Disabilita BingSearch in Cortana",
+        "Command": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search\" /v \"BingSearchEnabled\" /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Nascondi estensioni file",
+        "Command": "reg add \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"HideFileExt\" /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Imposta colore foreground applicazioni immersive",
+        "Command": "reg add \"HKCU\\Control Panel\\Colors\" /v \"ImmersiveApplicationForeground\" /t REG_SZ /d \"255 255 255\" /f"
+    },
+    {
+        "Nome": "Disabilita online tips in Explorer",
+        "Command": "reg add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer /v AllowOnlineTips /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Abilita CLSID per Taskbar",
+        "Command": "reg add \"HKCU\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\\InprocServer32\" /f /ve"
+    },
+    {
+        "Nome": "Pulisci la barra delle applicazioni",
+        "Command": "del /f /s /q /a \"%AppData%\\Microsoft\\Internet Explorer\\Quick Launch\\User Pinned\\TaskBar\\*\""
+    },
+    {
+        "Nome": "Elimina la configurazione di Taskband",
+        "Command": "reg delete HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Taskband /f"
+    },
+    {
+        "Nome": "Nascondi la barra di ricerca nella taskbar",
+        "Command": "reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search /v SearchboxTaskbarMode /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Disabilita pubblicità in ContentDeliveryManager",
+        "Command": "powershell -command \"$regKeyPath='HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager';$exportedRegFile='exportedRegFile.reg';reg export $regKeyPath $exportedRegFile;((Get-Content $exportedRegFile) -replace '=dword:00000001','=dword:00000000') | Set-Content $exportedRegFile;reg import $exportedRegFile;Remove-Item $exportedRegFile\""
+    },
+    {
+        "Nome": "Esporta e modifica CloudContent",
+        "Command": "set regKeyPath=HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent\nset exportedRegFile=CloudContent.reg\nreg query \"%regKeyPath%\" >nul 2>&1\nif %errorlevel% equ 0 (\n    powershell -command \"$regKeyPath='%regKeyPath%';$exportedRegFile='%exportedRegFile%';reg export $regKeyPath $exportedRegFile;((Get-Content $exportedRegFile) -replace '=dword:00000001','=dword:00000000') | Set-Content $exportedRegFile;reg import $exportedRegFile;Remove-Item $exportedRegFile\"\n)"
+    },
+    {
+        "Nome": "Configura vari servizi di Windows",
+        "Command": "sc config wsearch start=auto\nsc config DiagTrack start=disabled\nsc config dmwappushservice start=disabled\nsc config wuauserv start=disabled\nsc config Dosvc start=disabled"
+    },
+    {
+        "Nome": "Modifica parametri di desktop",
+        "Command": "reg add \"HKCU\\Control Panel\\Desktop\" /v \"MenuShowDelay\" /t REG_DWORD /d 0 /f\nreg add \"HKCU\\Control Panel\\Desktop\" /v \"SmoothScroll\" /t REG_DWORD /d 0 /f\nreg add \"HKCU\\Control Panel\\Desktop\" /v \"UserPreferencesMask\" /t REG_BINARY /d \"9000000000000000\" /f\nreg add \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v TaskbarDa /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Rimuove pacchetti Appx",
+        "Command": "powershell -command \"$ErrorActionPreference = 'SilentlyContinue'; Get-AppxPackage -AllUsers | Where-Object {$_.name -notmatch 'Microsoft.VP9VideoExtensions|Notepad|Microsoft.WebMediaExtensions|Microsoft.WebpImageExtension|Microsoft.Windows.ShellExperienceHost|Microsoft.VCLibs*|Microsoft.DesktopAppInstaller|Microsoft.StorePurchaseApp|Microsoft.Windows.Photos|Microsoft.WindowsStore|Microsoft.XboxIdentityProvider|Microsoft.WindowsCalculator|Microsoft.HEIFImageExtension|Microsoft.UI.Xaml*'} | Remove-AppxPackage\""
+    },
+    {
+        "Nome": "Nascondi Cortana (secondo controllo)",
+        "Command": "if exist \"%windir%\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy\" (\n    move \"%windir%\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy\" \"%windir%\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy.bak\"\n)"
+    },
+    {
+        "Nome": "Disabilita SyncProvider Notifications",
+        "Command": "reg add \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v \"ShowSyncProviderNotifications\" /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Disabilita Notifications",
+        "Command": "reg add \"HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PushNotifications\" /v \"ToastEnabled\" /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Configura Memory Management",
+        "Command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\" /v \"ClearPageFileAtShutdown\" /t REG_DWORD /d 1 /f"
+    },
+    {
+        "Nome": "Configura DWM",
+        "Command": "reg add \"HKCU\\Software\\Microsoft\\Windows\\DWM\" /v \"UseComposition\" /t REG_DWORD /d 0 /f\nreg add \"HKCU\\Software\\Microsoft\\Windows\\DWM\" /v \"CompositionPolicy\" /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Modifica Standby Timeout",
+        "Command": "powercfg -change standby-timeout-ac 0"
+    },
+    {
+        "Nome": "Disabilita ShowAllAds",
+        "Command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\Folder\\Hidden\" /v ShowAllAds /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Disabilita AutoCheckSelect",
+        "Command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" /v AutoCheckSelect /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Disabilita SystemPaneSuggestionsEnabled",
+        "Command": "reg add \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v SystemPaneSuggestionsEnabled /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Disabilita SoftLandingEnabled",
+        "Command": "reg add \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v SoftLandingEnabled /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Disabilita SubscribedContent-310093Enabled",
+        "Command": "reg add \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v SubscribedContent-310093Enabled /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Disabilita DisableLockScreenAppNotifications",
+        "Command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v DisableLockScreenAppNotifications /t REG_DWORD /d 1 /f"
+    },
+    {
+        "Nome": "Disabilita SubscribedContent-338388Enabled",
+        "Command": "reg add \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager\" /v SubscribedContent-338388Enabled /t REG_DWORD /d 0 /f"
+    },
+    {
+        "Nome": "Disattivazione scadenza pw",
+        "Command": "C:\\Windows\\System32\\wbem\\wmic UserAccount set PasswordExpires=False"
+    },
+    {
+        "Nome": "Aggiungi o modifica le proprietà nei registri",
+        "Command": "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DriverSearching\" /v \"SearchOrderConfig\" /t REG_DWORD /d 0 /f && reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Power\" /v \"HiberbootEnabled\" /t REG_DWORD /d 0 /f && reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerThrottling\" /v \"PowerThrottlingOff\" /t REG_DWORD /d 1 /f"
+    }
+ ]
+}
