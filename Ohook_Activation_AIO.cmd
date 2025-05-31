@@ -1,4 +1,3 @@
-@set masver=3.0
 @echo off
 
 
@@ -290,39 +289,6 @@ set "d4=$k=$t.CreateType(); $b=$k::SetConsoleMode($k::GetStdHandle(-10), 0x0080)
 
 %launchcmd% "%d1% %d2% %d3% %d4% & cmd.exe '/c' '!_PSarg! -qedit'" && (exit /b) || (set terminal=1)
 :skipQE
-
-::========================================================================================================================================
-
-::  Check for updates
-
-set -=
-set old=
-set upver=%masver:.=%
-
-for /f "delims=[] tokens=2" %%# in ('ping -4 -n 1 activ%-%ated.win') do (
-if not "%%#"=="" set old=1
-for /f "delims=[] tokens=2" %%# in ('ping -4 -n 1 updatecheck%upver%.activ%-%ated.win') do (
-if not "%%#"=="" set old=
-)
-)
-
-if defined old (
-echo ________________________________________________
-%eline%
-echo Your version of MAS [%masver%] is outdated.
-echo ________________________________________________
-echo:
-if not %_unattended%==1 (
-echo [1] Get Latest MAS
-echo [0] Continue Anyway
-echo:
-call :dk_color %_Green% "Choose a menu option using your keyboard [1,0] :"
-choice /C:10 /N
-if !errorlevel!==2 rem
-if !errorlevel!==1 (start %mas% & exit /b)
-)
-)
-cls
 
 ::========================================================================================================================================
 
